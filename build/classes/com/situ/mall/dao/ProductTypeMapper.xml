@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.mall.dao.ProductTypeMapper">
+
+
+	<resultMap type="ProductType" id="producttypeInfo">
+		<id property="id" column="id" />
+		<result property="name" column="tname" />
+		<result property="status" column="status" />
+		<result property="create_time" column="create_time" />
+		<result property="update_time" column="update_time" />
+		<association javaType="ProductType" property="productType">
+			<result property="name" column="Tname1" />
+		</association>
+	</resultMap>
+	<select id="seleteAll" resultMap="producttypeInfo">
+		SELECT
+		t.update_time,t.create_time,t.status,t.name tname,T1.name
+		Tname1,t.id,t.parent_id from category AS t INNER JOIN category AS T1 on
+		t.parent_id=T1.id
+	</select>
+
+
+
+	<select id="pagelist" resultMap="producttypeInfo" parameterType="map">
+		SELECT t.update_time,t.create_time,t.status,t.name tname,T1.name
+		Tname,t.id,t.parent_id from category AS t INNER JOIN category AS T1 on
+		t.parent_id=T1.id limit #{pageindex},#{pageSize}
+	</select>
+
+
+	<select id="selectByName" resultType="producttype"
+		parameterType="string">
+		select * from category where producttype.name=#{name}
+	</select>
+
+
+	<insert id="insert" parameterType="producttype">
+		insert category(id,name,parent_id,status,create_time,update_time) values (#{id},#{name},#{parent_id},#{status},now(),now())
+	</insert>
+
+
+	<select id="selectById" resultType="producttype" parameterType="Integer">
+		select t.* from category AS t INNER JOIN producttype AS T1 on
+		t.parent_id=T1.id where t.id=#{id}
+	</select>
+
+	<update id="update" parameterType="producttype">
+		update category
+		<set>
+			<if test="name!=null">
+				name=#{name},
+			</if>
+			<if test="age!=null">
+				update_time=now(),
+			</if>
+			<if test="parent_id">
+				parent_id=#{parent_id},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<delete id="deleteAll">
+		delete from category
+		<where>
+			id in
+			<foreach collection="array" item="id" separator="," open="("
+				close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+
+	<delete id="delete" parameterType="int">
+		delete from category where id=#{id}
+	</delete>
+
+	<!-- <select id="findByCondition" parameterType="com.situ.ssm.utils.selectCondition" 
+		resultType="producttype"> select producttype.* from category <where> <if 
+		test="name!=null and !&quot;&quot;.equals(name.trim())"> and name like '%${name}%' 
+		</if> <if test="age!=null"> and age=#{age} </if> <if test="gender!=null and 
+		!&quot;&quot;.equals(gender.trim())"> and gender=#{gender} </if> </where> 
+		</select> -->
+
+	<select id="getTotalCount" resultType="integer">
+		select count(*)
+		FROM category AS t INNER JOIN category AS T1 on t.parent_id=T1.id
+
+	</select>
+
+</mapper>
