@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.mall.dao.ProductMapper">
+ <sql id="studentColums">
+ t1.`name` t1name,t2.`name` t2name, p.id,p.category_id,p.create_time,p.detail,p.main_image,p.`name` pname,p.price,p.`status`,p.stock,p.subtitle,p.sub_images,p.update_time FROM product as p INNER JOIN category as t1 on p.category_id=t1.id
+left JOIN category as t2 ON t2.id=t1.parent_id
+ </sql>
+
+	<resultMap type="product" id="productInfo">
+		 <id property="id" column="id" />
+		 <id property="category_id" column="category_id" />
+		 <result property="name" column="pname" />
+		 <result property="subtitle" column="subtitle" />
+		 <result property="main_image" column="main_image" />
+		 <result property="sub_images" column="sub_images" />
+		 <result property="detail" column="detail" />
+		 <result property="price" column="price" />
+		 <result property="stock" column="stock" />
+		 <result property="status" column="status" />
+		 <result property="create_time" column="create_time" /> 
+		 <result property="update_time" column="update_time" /> 
+			<association javaType="ProductType" property="productType">
+				<result property="name" column="t1name" />
+					<association javaType="ProductType" property="productType">
+						<result property="name" column="t2name" />
+					</association>
+			</association>
+	</resultMap>
+	
+	<select id="seleteBycondition" resultMap="productInfo" parameterType="map">
+		SELECT <include refid="studentColums"/>
+		<where>
+		  <if test="name!=null">
+		   and  p.name like '%${name}%'
+		  </if>
+		</where>  
+		limit #{pageIndex},#{pageSize}
+	</select>	
+	
+	
+	
+	<select id="selectByName" resultMap="productInfo" parameterType="string">
+		SELECT <include refid="studentColums"/> WHERE p.name like '%${_parameter}%'
+	</select>
+	
+	
+	
+	
+	<select id="seleteAll" resultMap="productInfo">
+		SELECT <include refid="studentColums"/> WHERE p.parent_id=0
+	</select>
+
+	<select id="getTotalCount1" resultType="integer" parameterType="map">
+		select count(*) FROM product as p INNER JOIN category as t1 on p.category_id=t1.id
+		left JOIN category as t2 ON t2.id=t1.parent_id where p.name like "#${name}%"
+	</select>
+
+		
+	<select id="getTotalCount" resultType="integer">
+		select count(*) FROM product as p INNER JOIN category as t1 on p.category_id=t1.id left JOIN category as t2 ON t2.id=t1.parent_id
+	</select>
+	
+
+	
+	
+	<select id="pagelist" resultMap="productInfo" parameterType="map">
+		SELECT <include refid="studentColums"/> limit #{pageindex},#{pageSize}
+	</select>
+
+
+	<insert id="insert" parameterType="product">
+		insert  product(category_id,name,status,subtitle,main_image,sub_images,detail,price,stock,create_time,update_time)
+		 values (#{category_id},#{name},#{status},#{subtitle},#{main_image},#{sub_images},#{detail},#{price},#{stock},now(),now())
+	</insert>
+
+
+	<select id="getById"  resultMap="productInfo" parameterType="Integer">
+		select  <include refid="studentColums"/> where p.id=#{id}
+	</select>
+
+	<update id="update" parameterType="product">
+		update product
+		<set>
+		   <if test="name!=null and !&quot;&quot;.equals(name.trim())">
+		      name=#{name},
+		   </if>
+		   <if test="category_id!=null">
+		      category_id=#{category_id},
+		   </if>
+		   <if test="subtitle!=null">
+		      subtitle=#{subtitle},
+		   </if>
+		   <if test="main_image!=null">
+		      main_image=#{main_image},
+		   </if>
+		   <if test="sub_images!=null">
+		      sub_images=#{sub_images},
+		   </if>
+		   <if test="detail!=null">
+		      detail=#{detail},
+		   </if>
+		   <if test="price!=null">
+		      price=#{price},
+		   </if>
+		   <if test="stock!=null">
+		      stock=#{stock},
+		   </if>
+		   <if test="status!=null">
+		     status=#{status},
+		   </if>
+		   <if test=" update_time==null">
+             update_time=now(),		  
+		  </if>
+		
+		</set>
+		where id=#{id}
+	</update>
+
+
+	<delete id="deleteAll">
+		delete from product
+		<where>
+			id in
+			<foreach collection="array" item="id" separator="," open="("
+				close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="int">
+		delete from product where id=#{id}
+	</delete>
+
+	
+	
+
+</mapper>

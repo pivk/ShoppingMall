@@ -2,7 +2,9 @@ package com.situ.mall.service;
 
 import java.util.List;
 
-import com.situ.mall.util.PageBean;
+import com.situ.mall.pojo.User;
+import com.situ.mall.vo.PageBean;
+import com.situ.mall.vo.SelectCondition;
 
 public interface BasicService<T> {
 
@@ -11,19 +13,21 @@ public interface BasicService<T> {
 	
 	List<T> seleteAll();
 
-	public T selectByName(String name);
+	T selectByName(String name);
 	
-	public void insert(T t);
+	 void insert(T t);
 	
-	public T getById(int id);
+	 PageBean<T> seleteBycondition(Integer pageindex, Integer pageSize,String name);
+
+	 T getById(int id);
 	
-	public void update(T t);
+	 void update(T t);
 	
-	public void deleteAll(String[] idArray);
+	 void deleteAll(String[] idArray);
 	
-	public void delete(int id);
+	 void delete(int id);
 	
-	public int getTotalCount();
+
 
 	
 }

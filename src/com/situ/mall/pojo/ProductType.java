@@ -2,11 +2,14 @@ package com.situ.mall.pojo;
 
 import java.util.Date;
 
+import com.situ.mall.util.Values;
+
 public class ProductType {
 
 	private Integer id;
 	private Integer parent_id;
 	private String name;
+	private String status_name;
 	private int status;
 	private Date create_time;
 	private Date update_time;
@@ -81,5 +84,9 @@ public class ProductType {
 	}
 
 
+
+	public String getStatus_name() {
+		return  Values.statusa[status];	
+		}
 
 }

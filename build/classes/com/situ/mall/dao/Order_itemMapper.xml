@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.mall.dao.Order_itemMapper">
+ <sql id="studentColums">
+ product.main_image,product.price, order_item.*,user.username,product.`name` FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id</sql>
+	<resultMap type="order_item" id="order_itemInfo">
+		 <id property="id" column="id" />
+		 <id property="user_id" column="user_id" />
+		 <result property="order_no" column="order_no" />
+		 <result property="product_id" column="product_id" /> 
+		 <result property="quantity" column="quantity" /> 
+		 <result property="total_price" column="total_price" /> 
+		 <result property="create_time" column="create_time" /> 
+		 <result property="update_time" column="update_time" /> 
+			<association javaType="User" property="user">
+				<result property="name" column="username" />
+			</association>
+			<association javaType="Product" property="product">
+				<result property="name" column="name" />
+				<result property="main_image" column="main_image" />
+				<result property="price" column="price" />
+			</association>
+	</resultMap>
+	
+	<select id="seleteBycondition" resultMap="order_itemInfo" parameterType="map">
+		SELECT <include refid="studentColums"/>
+<!-- 		<where>
+		  <if test="name!=null">
+		   and   order_item.name like '%${name}%'
+		  </if>
+		</where>   -->
+		limit #{pageIndex},#{pageSize}
+	</select>	
+	
+	
+	
+	<select id="selectByName" resultType="order_item" parameterType="string">
+		SELECT <include refid="studentColums"/> WHERE  user.name like '%${name}%'
+	</select>
+	
+	<select id="seleteAll" resultMap="order_itemInfo">
+		SELECT <include refid="studentColums"/>
+	</select>
+
+	<select id="getTotalCount1" resultType="integer" parameterType="map">
+		select count(*) FROM 
+order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id		 where  user.name like "#${name}%"
+	</select>
+
+		
+	<select id="getTotalCount" resultType="integer">
+		select count(*) FROM
+		order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id
+	</select>
+	
+
+	
+	
+	<select id="pagelist" resultMap="order_itemInfo" parameterType="map">
+		SELECT <include refid="studentColums"/> limit #{pageindex},#{pageSize}
+	</select>
+
+
+	<insert id="insert" parameterType="order_item">
+		insert  order_item(user_id,product_id,quantity,total_price,create_time,update_time)
+	 values (#{user_id},#{product_id},#{quantity},#{total_price},now(),now())
+	</insert>
+
+
+	<select id="getById"  resultMap="order_itemInfo" parameterType="Integer">
+		select  <include refid="studentColums"/> where  order_item.id=#{id}
+	</select>
+
+
+	<update id="update" parameterType="order_item">
+		update category
+		<set>
+		   <if test="name!=null and !&quot;&quot;.equals(name.trim())">
+		      name=#{name},
+		   </if>
+		   <if test="category_id!=null">
+		      category_id=#{category_id},
+		   </if>
+		   <if test="subtitle!=null">
+		      subtitle=#{subtitle},
+		   </if>
+		   <if test="main_image!=null">
+		      main_image=#{main_image},
+		   </if>
+		   <if test="sub_images!=null">
+		      sub_images=#{sub_images},
+		   </if>
+		   <if test="detail!=null">
+		      detail=#{detail},
+		   </if>
+		   <if test="price!=null">
+		      price=#{price},
+		   </if>
+		   <if test="stock!=null">
+		      stock=#{stock},
+		   </if>
+		   <if test="status!=null">
+		     status=#{status},
+		   </if>
+		   <if test=" update_time==null">
+             update_time=now(),		  
+		  </if>
+		
+		</set>
+		where id=#{id}
+	</update>
+
+
+	<delete id="deleteAll">
+		delete from order_item
+		<where>
+			id in
+			<foreach collection="array" item="id" separator="," open="("
+				close=")">
+				#{id}
+			</foreach>
+		</where>
+	</delete>
+	
+	<delete id="delete" parameterType="int">
+		delete from order_item where id=#{id}
+	</delete>
+
+	
+	
+
+</mapper>

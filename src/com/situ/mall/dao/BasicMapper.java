@@ -3,23 +3,29 @@ package com.situ.mall.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.situ.mall.vo.SelectCondition;
+
 public interface BasicMapper<T> {
 	
 	List<T> pagelist(Map<String, Integer> map);
 	
 	List<T> seleteAll();
 	
-	public T selectByName(String name);
+	List<T> seleteBycondition(Map<String, Object> map);
 	
-	public void insert(T t);
+	 T selectByName(String name);
 	
-	public T getById(int id);
+	 void insert(T t);
 	
-	public void update(T t);
+	 T getById(int id);
 	
-	public void deleteAll(String[] idArray);
+	 void update(T t);
 	
-	public void delete(int id);
+	 void deleteAll(String[] idArray);
 	
-	public int getTotalCount();
+	 void delete(int id);
+	
+	 int getTotalCount();
+	
+	 int getTotalCount1(Map<String, Object> map);
 }

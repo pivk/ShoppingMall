@@ -3,7 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-	<display-name>Java1707SSM</display-name>
+	<display-name>Cart</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -13,10 +13,10 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-
 		<listener>
 			<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 		</listener>
+		
 		<filter>
 			<filter-name>encoding</filter-name>
 			<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -29,10 +29,15 @@
 			<filter-name>encoding</filter-name>
 			<url-pattern>/*</url-pattern>
 		</filter-mapping>
+		
 		<context-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath:applicationContext.xml</param-value>
 		</context-param>
+		
+		
+				  	<!-- 配置SpringMVC 后台 -->
+		
 		<servlet>
 			<servlet-name>springmvc</servlet-name>
 			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -40,11 +45,59 @@
 				<param-name>contextConfigLocation</param-name>
 				<param-value>classpath:springmvc.xml</param-value>
 			</init-param>
-
 			<load-on-startup>1</load-on-startup>
 		</servlet>
 		<servlet-mapping>
 			<servlet-name>springmvc</servlet-name>
 			<url-pattern>*.action</url-pattern>
 		</servlet-mapping>
+		
+		  	<!-- 配置SpringMVC 前台 -->
+    <servlet>
+        <servlet-name>springmvc-front</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+       <init-param>
+           <param-name>contextConfigLocation</param-name>
+           <param-value>classpath:springmvc-front.xml</param-value>
+       </init-param>
+       <!-- 启动tomcat时候启动 -->
+       <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springmvc-front</servlet-name>
+       <url-pattern>*.shtml</url-pattern>
+    </servlet-mapping>
+
+
+
+	<!-- 配置错误信息 -->
+	<!-- <error-page> <error-code> 500 </error-code> <location>/common/error500.jsp</location> 
+		</error-page> <error-page> <error-code> 404 </error-code> <location>/common/error404.html</location> 
+		</error-page> -->
+
+	<!-- 过滤器 -->
+
+<!-- 	<filter>
+		<filter-name>HelloFilter</filter-name>
+		<filter-class>Filter.HelloFilter</filter-class>
+	</filter>
+
+
+	<filter-mapping>
+		<filter-name>HelloFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+		 -->
+	
+   <!-- 分界线 -->
+	<servlet>
+		<servlet-name>CheckImg</servlet-name>
+		<servlet-class>com.situ.mall.util.CheckImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckImg</servlet-name>
+		<url-pattern>/checkImg</url-pattern>
+	</servlet-mapping>
+	
+		
 </web-app>
