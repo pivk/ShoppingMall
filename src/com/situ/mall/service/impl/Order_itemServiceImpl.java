@@ -1,5 +1,7 @@
 package com.situ.mall.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.tomcat.util.http.mapper.Mapper;
@@ -14,6 +16,10 @@ public class Order_itemServiceImpl extends BasicServiceImpl<Order_item> implemen
 
 	@Resource(name="Order_itemMapper")
 	private Order_itemMapper mappper;
+
+	public List<Order_item> seleteByusername(int id) {
+		return mappper.seleteByusername(id);
+	}
 
 
 

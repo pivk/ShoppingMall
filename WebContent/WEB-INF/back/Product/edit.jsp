@@ -62,28 +62,28 @@
 				<label class="layui-form-label">商品状态</label>
 				<div class="layui-input-inline">
 					<select name="status" class="form-control">
-							<option  selected="selected" value="0">下架</option>
+						  	<c:if test="${info.status==null} ">
+							<option    value="0">下架</option>
 							<option   value="1">上架</option>
-						 	<option value="2">在售</option>
-						
-					<%-- 	<c:if test="${info.status==1} ">
+						 	<option   value="2">在售</option>
+						</c:if>
+						<c:if test="${info.status==1} ">
 							<option  value="0">下架</option>
 							<option  selected="selected" value="1">上架</option>
 						 	<option value="2">在售</option>
-						</c:if>
+							 </c:if>
 
-							
 						<c:if test="${info.status==2} ">
 							<option  value="0">下架</option>
 							<option  value="1">上架</option>
 						 	<option  selected="selected" value="2">在售</option>
 						</c:if>
-					  	<c:if test="${info.status==null} ">
-							<option   value="0">下架</option>
-							<option   value="1">上架</option>
-						 	<option value="2">在售</option>
+						<c:if test="${info.status==0} ">
+							<option  selected="selected" value="0">下架</option>
+							<option  value="1">上架</option>
+						 	<option  value="2">在售</option>
 						</c:if>
- --%>
+					
 				  	</select>				
 				</div>
 			</div>

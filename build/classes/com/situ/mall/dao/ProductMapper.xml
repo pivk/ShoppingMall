@@ -43,6 +43,10 @@ left JOIN category as t2 ON t2.id=t1.parent_id
 		SELECT <include refid="studentColums"/> WHERE p.name like '%${_parameter}%'
 	</select>
 	
+	<select id="selectByProductTypeid" resultMap="productInfo" parameterType="integer">
+		SELECT <include refid="studentColums"/> WHERE category_id=#{id}
+	</select>
+	
 	
 	
 	

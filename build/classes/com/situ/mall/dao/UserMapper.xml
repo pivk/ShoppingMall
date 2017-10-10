@@ -10,7 +10,7 @@
 		SELECT <include refid="studentColums"/>
 		<where>
 		  <if test="name!=null">
-		   and  name like '%${name}%'
+		   and  username like '%${name}%'
 		  </if>
 		</where>  
 		limit #{pageIndex},#{pageSize}

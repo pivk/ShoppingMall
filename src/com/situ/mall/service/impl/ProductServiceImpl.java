@@ -1,5 +1,7 @@
 package com.situ.mall.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -14,8 +16,16 @@ public class ProductServiceImpl extends BasicServiceImpl<Product> implements Pro
 	@Resource(name="ProductMapper")
 	private ProductMapper mappper;
 
+	@Override
+	public List<Product> selectByProductTypeid(int id) {
+		// TODO Auto-generated method stub
+		return mappper.selectByProductTypeid(id);
+	}
 
 
+
+
+  
 	
 
 }

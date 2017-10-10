@@ -23,7 +23,6 @@ public class PicController {
 	 * @param pictureFile
 	 * @return
 	 */
-	
 	@RequestMapping(value="/pic", produces=MediaType.TEXT_PLAIN_VALUE+";charset=utf-8")
 	@ResponseBody
 	public String uploadFile(MultipartFile pictureFile) {
@@ -107,8 +106,5 @@ public class PicController {
 	map.put("filePath",MallConstant.SERVER_ADDRES+fileName);
 	return map;
 	}
-	
-	public static void main(String[] args) {
-		String name = UUID.randomUUID().toString().replace("-", "");
-	}
+
 }

@@ -13,7 +13,7 @@
 		 <result property="create_time" column="create_time" /> 
 		 <result property="update_time" column="update_time" /> 
 			<association javaType="User" property="user">
-				<result property="name" column="username" />
+				<result property="username" column="username" />
 			</association>
 			<association javaType="Product" property="product">
 				<result property="name" column="name" />
@@ -35,11 +35,15 @@
 	
 	
 	<select id="selectByName" resultType="order_item" parameterType="string">
-		SELECT <include refid="studentColums"/> WHERE  user.name like '%${name}%'
+		SELECT <include refid="studentColums"/> WHERE  product.name like '%${name}%'
 	</select>
 	
 	<select id="seleteAll" resultMap="order_itemInfo">
 		SELECT <include refid="studentColums"/>
+	</select>
+	
+	<select id="seleteByusername" resultMap="order_itemInfo" parameterType="integer">
+		SELECT <include refid="studentColums"/> where user_id=#{id} 
 	</select>
 
 	<select id="getTotalCount1" resultType="integer" parameterType="map">

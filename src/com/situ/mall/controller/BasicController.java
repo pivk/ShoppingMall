@@ -53,12 +53,7 @@ public class BasicController<T> {
 	}
     
 	
-	
-	@RequestMapping("/index")
-	 public List<T> index(ModelMap m){
-	       List<T> t=getService().seleteAll();
-         return t;
-	}
+
 	
 	@RequestMapping("/pagelist")
 	public String  pagelist(ModelMap m,String pageIndex, String pageSize, HttpServletRequest req,

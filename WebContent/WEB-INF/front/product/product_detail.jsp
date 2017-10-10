@@ -3,111 +3,14 @@
 <%@include file="../common/head.jsp" %>
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
-		<title>华为畅享6S</title>
+		<title>商品详情</title>
 		<link rel="stylesheet" type="text/css" href="${ctx}/resources/front/css/detail_style.css" />
-		<script type="text/javascript">
-			$(function(){
-				//- 
-				$("#sub").click(function(){
-					var num = $("#num").val();
-					num--;
-					if(num == 0) {
-						//alert();
-						return;
-					}
-					//赋值
-					$("#num").val(num);
-				});
-				//+
-				$("#add").click(function(){
-					var num = $("#num").val();
-					num++;
-					if(num > '${product.stock}') {
-						alert("此商品只能买" + '${product.stock}' + "件");
-						return;
-					}
-					//赋值
-					$("#num").val(num);
-				});
-			});
-		</script>
 	</head>
 
 	<body>
-		<!--top-->
-		<div class="top_big">
-			<div class="top_center">
-				<div class="left">
-					欢迎来到靓淘网！
-				</div>
-				<div class="right">
-					<ul>
-						<li>
-							<a class="login" href="login.html" target="_blank">请登录</a>
-						</li>
-						<li>
-							<a href="register.html" target="_blank">快速注册</a>
-						</li>
-						<li>
-							<a class="collect" href="">我的收藏</a>
-						</li>
-						<li>
-							<a class="indent" href="">我的订单</a>
-						</li>
-						<li>
-							<a class="phone" href="">手机靓淘</a>
-						</li>
-						<li>
-							<a href="">我的积分</a>
-						</li>
-						<li>
-							<a href="">我的评价</a>
-						</li>
-					</ul>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-		<!---------------logo-------------------->
-		<div class="logo_center">
-			<div class="left">
-				<img src="${ctx}/resources/front/img/img/LOGO.png" />
-			</div>
-			<div class="center">
-				<input class="logo_search" type="text" />
-				<input class="logo_btn" type="button" value="搜索" />
-				<ul class="logo_ad">
-					<li>
-						<a href="">值得买 |</a>
-					</li>
-					<li>
-						<a href="">小米6 |</a>
-					</li>
-					<li>
-						<a href="">金立 |</a>
-					</li>
-					<li>
-						<a href="">华为畅享 7P |</a>
-					</li>
-					<li>
-						<a href="">苹果7 |</a>
-					</li>
-					<li>
-						<a href="">1元800M |</a>
-					</li>
-				</ul>
-			</div>
-			<div class="right">
-				<a style="color: #666666;" href="">去购物车结算</a>
-				<div class="logo_nav">
-
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+	 <c:import url="../common/top.jsp"></c:import>
 		<div class="menu">
 			<div class="menu_center">
 				<ul class="menu_ul">
@@ -135,6 +38,12 @@
 			</div>
 
 		</div>
+		
+		<!--订单插入  -->
+		<form  method="post" id="form">
+		<input type="hidden" name="user_id" value="${sessionScope.user.id}">
+		<input type="hidden" name="product_id" value="${product.id}">
+		<input type="hidden" name="total_price" value="${product.price*product.stock}">
 		<div class="little_menu_bg">
 			<div class="little_menu">
 				<ul>
@@ -160,16 +69,15 @@
 							<li class="left_right_nav">
 							<img src="${ctx}/resources/front/img/img/left.png" />	
 						    </li>
-						    <c:forEach var="r" items="${product.sub_images} ">
+						    <c:forEach var="r" items="${product.sub_images}">
 						    	<li class="small_shop">
-								<img >
+								<img src="r">
 								</li>
 						    </c:forEach>
-							
-							
-							<li class="left_right_nav">
+			  				<li class="left_right_nav">
 								<img src="${ctx}/resources/front/img/img/right.png" />
 							</li>
+							
 						</ul>
 					</li>
 					<li class="banner_center_left_bottom">
@@ -177,9 +85,9 @@
 						<img src="${ctx}/resources/front/img/img/enjoy.png" />&nbsp;分享&nbsp;&nbsp;
 						<img src="${ctx}/resources/front/img/img/duizhao.png" />&nbsp;对比
 					</li>
-				</ul>
+				</ul>				
 			</div>
-			<div class="right">
+			<div class="right" style="margin-left: -5px">
 				<ul>
 					<li class="right_1">
 						<span class="title">	
@@ -188,6 +96,7 @@
 						<span class="next_title">
 							${product.subtitle}
 						</span>
+						<div class="clear" style="clear: both"></div>
 					</li>
 					<li class="right_2">
 						<ul>
@@ -308,7 +217,7 @@
 						<span class="right_txt">
 							数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量&nbsp;&nbsp;&nbsp;&nbsp;
 						</span>
-						<input class="right_bottom_text" type="text" id="num" value="1" />
+						<input class="right_bottom_text" type="text" id="num" name="quantity" value="1" />
 						<ul class="right_bottom_btn">
 							<li>
 								<input class="right_bottom_substract" type="button" id="sub" value="-" />
@@ -316,7 +225,10 @@
 							</li>
 						</ul>
 						库存： ${product.stock}
-						<input class="right_bottom_addCar" type="button" value="加入购物车" />
+						
+						<input class="right_bottom_addCar" id="car" type="button" value="加入购物车"   />
+						<input class="right_bottom_addCar" id="buy" type="button" value="立即购买" />
+						
 						<span class="right_txt_bottom">
 							温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·支持7天无理由退货
 						</span>
@@ -325,6 +237,8 @@
 			</div>
 			<div class="clearfix"></div>
 		</div>
+		</form>
+		
 		<div class="add">
 			<div class="add_title">
 				<ul class="add_title_ul">
@@ -500,215 +414,9 @@
 					8核
 				</p>
 			</div>
-			<div class="right">
-				<ul>
-					<li class="de_li_1">
-						<div class="dpi">
-							<span>
-								分辨率：1280×720（HD）
-							</span>
-						</div>
-						<div class="camera">
-							<span>
-								后置摄像头：1300万像素<br /> 前置摄像头：500万像素
-							</span>
-
-						</div>
-						<div class="cpu">
-							<span>
-								核数：八核 <br />频率：最高1.4GHz
-							</span>
-
-						</div>
-					</li>
-					<li class="de_li_2">
-						品牌：
-						<span class="brand_name1">
-								华为（HUAWEI）
-							</span>
-						<span class="care1">
-								<img src="${ctx}/resources/front/img/img/xin.png"/>
-								关注
-							</span>
-						</span>
-					</li>
-					<li class="detial_brand">
-						<ul>
-							<li>
-								商品名称：华为畅享6S
-							</li>
-							<li>
-								系统：安卓（Android）
-							</li>
-							<li>
-								机身内存:32GB
-							</li>
-						</ul>
-						<ul>
-							<li>
-								运行内存：3GB
-							</li>
-							<li>
-								机身颜色：金色、银色、粉色
-							</li>
-						</ul>
-						<ul>
-							<li>
-								商品产地：中国大陆
-							</li>
-							<li>
-								电池容量：3000mAh-3999mAh
-							</li>
-						</ul>
-						<ul>
-							<li>
-								热点：骁龙芯片、双卡双待
-							</li>
-						</ul>
-					</li>
-					<li class="more_arguments">
-						<span>
-							更多参数&gt;&gt;
-						</span>
-
-					</li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<div class="surper_big">
-			<div class="left_big">
-			<div class="left">
-				<div class="left">
-					<div class="left_top">
-						达人选购
-					</div>
-					<ul>
-						<li>
-							<img src="${ctx}/resources/front/img/img/138.png" />
-							<p class="small_p">荣耀&nbsp;畅玩6X&nbsp;32GB&nbsp;全网通4G手机&nbsp;高配版&nbsp;铂光金<br />
-								<span class="left_money">
-								¥&nbsp;1299.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/139.png" />
-							<p class="small_p">华为 4GB 32GB 全网通4G手机 高配版 白色<br />
-								<span class="left_money">
-								¥&nbsp;1299.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/140.png" />
-							<p class="small_p">华为 HUAWEI noal64GB版本手机 高配版 玫瑰金<br />
-								<span class="left_money">
-								¥&nbsp;1299.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/141.png" />
-							<p class="small_p">荣耀 麦芒5X 64GB 全网通4G手机 高配版 香槟金<br />
-								<span class="left_money">
-								¥&nbsp;2299.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/142.png" />
-							<p class="small_p">荣耀 V9 4GB+64GB 全网通4G手机 高配版 极光蓝<br />
-								<span class="left_money">
-								¥&nbsp;1299.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/143.png" />
-							<p class="small_p">荣耀 畅玩7X 64GB 全网通4G手机 高配版 铂光金<br />
-								<span class="left_money">
-								¥&nbsp;1499.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/144.png" />
-							<p class="small_p">荣耀 P9 双卡双待 全网通4G手机 高配版 皓月银<br />
-								<span class="left_money">
-								¥&nbsp;1699.00
-							</span>
-							</p>
-						</li>
-						<li>
-							<img src="${ctx}/resources/front/img/img/145.png" />
-							<p class="small_p">荣耀8 青春版 32GB 全网通4G手机 高配版 铂光金<br />
-								<span class="left_money">
-								¥&nbsp;1399.00
-							</span>
-							</p>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="ranking">
-				<div class="top">
-					手机热销榜
-				</div>
-				<div class="center_ranking">
-					<ul>
-						<li>
-							<a class="current" href="">同价位</a>
-						</li>
-						<li>
-							<a href="">同品牌</a>
-						</li>
-						<li>
-							<a href="">总排行</a>
-						</li>
-					</ul>
-				</div>
-				<div class="bottom">
-					<ul>
-						<li class="ranking_1">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">华为荣耀6X</span>
-							<span class="brand_price">¥&nbsp;1699.00</span>
-						</li>
-						<li class="ranking_2">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">360N5</span>
-							<span class="brand_price">¥&nbsp;1699.00</span>
-						</li>
-						<li class="ranking_3">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">OPPOA57</span>
-							<span class="brand_price">¥&nbsp;1699.00</span>
-						</li>
-						<li class="ranking_4">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">小米Note4</span>
-							<span class="brand_price">¥&nbsp;1199.00</span>
-						</li>
-						<li class="ranking_5">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">诺基亚6</span>
-							<span class="brand_price">¥&nbsp;1699.00</span>
-						</li>
-						<li class="ranking_6">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">乐视乐2</span>
-							<span class="brand_price">¥&nbsp;1699.00</span>
-						</li>
-						<li class="ranking_7">
-							<img class="brand_ranking" src="${ctx}/resources/front/img/img/yuan1.png"/>
-							<span class="brand_name">小米5</span>
-							<span class="brand_price">¥&nbsp;1599.00</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-			</div>
+		
+		
+			<br>
 			<!--=====================-->
 			<div class="right_big">
 				<div class="big_img">
@@ -759,183 +467,42 @@
 		</div>
 		<!------------------------------------------------------------------>
 
-		<div class="sp">
-			<div class="sp1">
-				<p style="color: rgb(51,51,51);">品质保障</p>
-				<p style="font-size: 12px; color: #808080;margin-top: 5px;">品质护航 购物无忧</p>
-			</div>
-			<div class="sp2">
-				<p style="color: rgb(51,51,51);">品质保障</p>
-				<p style="font-size: 12px; color: #808080;margin-top: 5px;">品质护航 购物无忧</p>
-			</div>
-			<div class="sp3">
-				<p style="color: rgb(51,51,51);">品质保障</p>
-				<p style="font-size: 12px; color: #808080;margin-top: 5px;">品质护航 购物无忧</p>
-			</div>
-			<div class="sp4">
-				<p style="color: rgb(51,51,51);">品质保障</p>
-				<p style="font-size: 12px; color: #808080;margin-top: 5px;">品质护航 购物无忧</p>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<div class="more">
-			<div class="mb1">
-				<ul>
-					<li>
-						购物指南
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;免费注册
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;开通支付宝
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;支付宝充值
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="mb2">
-				<ul>
-					<li>
-						品质保障
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;发票保障
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;售后规则
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;缺货赔付
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="mb3">
-				<ul>
-					<li>
-						支付方式
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;快捷支付
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;信用卡
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;货到付款
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="mb4">
-				<ul>
-					<li>
-						商家服务
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;商家入驻
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;商家中心
-						</a>
-					</li>
-					<li>
-						<a href="">
-							&nbsp;&nbsp;运营服务
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="mb5">
-				<ul>
-					<li>
-						手机靓淘
-					</li>
-					<li>
-						<img src="${ctx}/resources/front/img/img/98.png" />
-					</li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-		<div class="link">
-			<ul>
-				<li>
-					<a href="">
-						关于靓淘
-					</a>
-				</li>
-				<li>
-					<a href="">
-						帮助中心
-					</a>
-				</li>
-				<li>
-					<a href="">
-						开放平台
-					</a>
-				</li>
-				<li>
-					<a href="">
-						诚聘精英
-					</a>
-				</li>
-				<li>
-					<a href="">
-						联系我们
-					</a>
-				</li>
-				<li>
-					<a href="">
-						网站合作
-					</a>
-				</li>
-				<li>
-					<a href="">
-						法律声明及隐私政策
-					</a>
-				</li>
-				<li>
-					<a href="">
-						知识产权
-					</a>
-				</li>
-				<li>
-					<a href="">
-						廉政举报
-					</a>
-				</li>
-				<li>
-					<a href="">
-						规则意见征集
-					</a>
-				</li>
-			</ul>
-		</div>
-		<div class="copyright">
-			COPYRIGHT 2010-2017 北京创锐文化传媒有限公司 JUMEI.COM 保留一切权利. 客服热线：400-123-888888<br /> 京公网安备 110101020011226|京ICP证111033号|食品流通许可证 SP1101051110165515（1-1）|营业执照
-		</div>
 	</body>
-
+		<script type="text/javascript">
+			$(function(){
+				//- 
+				$("#sub").click(function(){
+					var num = $("#num").val();
+					num--;
+					if(num == 0) {
+						//alert();
+						return;
+					}
+					//赋值
+					$("#num").val(num);
+				});
+				//+
+				$("#add").click(function(){
+					var num = $("#num").val();
+					num++;
+					if(num > '${product.stock}') {
+						alert("此商品只能买" + '${product.stock}' + "件");
+						return;
+					}
+					//赋值
+					$("#num").val(num);
+				});
+			});
+			
+			
+			$("#car").click(function(){
+				 $("#form").attr('action','/Cart/Cart/insert.shtml');
+				this.submit();
+			})	
+			
+			$("#buy").click(function() {
+				 $("#form").attr('action','/Cart/orderItem/insert.shtml');
+				this.submit();
+			})	
+		</script>
 </html>

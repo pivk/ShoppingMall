@@ -38,4 +38,18 @@ public class FproductType extends BasicController<ProductType>{
 		m.put("product", product);
 		return "product/product_detail";
 	}
+	
+	@RequestMapping("/selectByid")
+	public String selectByid(int id,ModelMap m){
+		Product product =sservice.getById(id);
+		m.put("product", product);
+		return "product/product_detail";
+	}
+	
+	@RequestMapping("/productAll")
+	public String productAll(int id,ModelMap m){
+		m.put("productall",sservice.selectByProductTypeid(id));
+		return "product/productall";
+	}
+	
 }

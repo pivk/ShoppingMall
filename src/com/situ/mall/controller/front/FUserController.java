@@ -28,7 +28,6 @@ public class FUserController extends BasicController<com.situ.mall.pojo.User>{
 	}
 	 @Override
 	public String insert(User t, ModelMap m, HttpServletRequest req) {
-      
 		 t.setPassword(Md5Utils.getMd5(t.getPassword()));
 		 return super.insert(t, m, req);
 	}
@@ -61,7 +60,7 @@ public class FUserController extends BasicController<com.situ.mall.pojo.User>{
 			return   "/login/login";
 		}
 		else {
-			session.setAttribute("user", user);
+			session.setAttribute("user", info);
 		return "redirect:/productType/getType.shtml";
 		}
           
