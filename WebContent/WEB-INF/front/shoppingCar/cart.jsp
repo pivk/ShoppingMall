@@ -12,46 +12,8 @@
 	</head>
 
 	<body>
-		<div class="bg_color">
-			<div class="top_center">
-				<div class="left">
-					<span class="wel">欢迎来到靓淘网！</span>
-				</div>
-				<div class="right">
-					<ul>
-				
-						<c:if test="${user==null}">
-							<li><a class="login" href="/Cart/user/logout.shtml" target="_blank">请登录</a>
-							</li>
-		                   <li>
-								<a href="/Cart/user/add.shtml" target="_blank">快速注册</a>
-						</li>
-						</c:if>
-						<c:if test="${user!=null}">
-							<li>${user.username}
-							</li>
-						</c:if>
-				
-						<li>
-							<a class="collect" href="">我的收藏</a>
-						</li>
-						<li>
-							<a class="indent" href="">我的订单</a>
-						</li>
-						<li>
-							<a class=phone href="">手机靓购</a>
-						</li>
-						<li>
-							<a href="">我的积分</a>
-						</li>
-						<li>
-							<a href="">我的评价</a>
-						</li>
-					</ul>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
+				<%@include file="../common/top.jsp" %>
+		
 		<div class="logo_center">
 			<div class="left">
 				<img class="logo_img" src="${ctx}/resources/front/img/img/LOGO.png" />

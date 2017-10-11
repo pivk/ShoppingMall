@@ -10,7 +10,7 @@
 	</head>
 
 	<body>
-	 <c:import url="../common/top.jsp"></c:import>
+		<%@include file="../common/top.jsp" %>
 		<div class="menu">
 			<div class="menu_center">
 				<ul class="menu_ul">
@@ -47,12 +47,12 @@
 		<div class="little_menu_bg">
 			<div class="little_menu">
 				<ul>
-					<li class="little_menu_left">
+					<li class="little_menu_left" ">
 						&nbsp;&nbsp;&nbsp;&nbsp;${product.productType.productType.name}&nbsp;&gt;&nbsp;&nbsp;${product.productType.name}&nbsp;&gt;&nbsp;&nbsp;
 				${product.name}
 					</li>
 				
-					<li class="little_menu_bottom">
+					<li class="little_menu_bottom" style="float: right; margin-top: -18px">
 						<img src="${ctx}/resources/front/img/img/shoucang2.png" /> 联系供应商
 					</li>
 				</ul>
@@ -61,19 +61,20 @@
 		<div class="banner_center">
 			<div class="left">
 				<ul>
-					<li class="banner_center_left_top">
-						<img src="/pic/${product.main_image}" />
+					<li class="banner_center_left_top" >
+						<img  src="${product.fulUrl}" width="350px" height="450px" />
 					</li>
 					<li class="banner_center_left_center">
 						<ul>
 							<li class="left_right_nav">
-							<img src="${ctx}/resources/front/img/img/left.png" />	
+								<img src="${ctx}/resources/front/img/img/left.png" />	
 						    </li>
-						    <c:forEach var="r" items="${product.sub_images}">
-						    	<li class="small_shop">
-								<img src="r">
-								</li>
-						    </c:forEach>
+						    	
+						    	<c:forEach var="r" items="${sub_images}">
+						    		<li class="small_shop">	<img src="${r}"></li>
+						    	</c:forEach>
+								
+								
 			  				<li class="left_right_nav">
 								<img src="${ctx}/resources/front/img/img/right.png" />
 							</li>
@@ -87,7 +88,7 @@
 					</li>
 				</ul>				
 			</div>
-			<div class="right" style="margin-left: -5px">
+			<div class="right" >
 				<ul>
 					<li class="right_1">
 						<span class="title">	
@@ -414,58 +415,17 @@
 					8核
 				</p>
 			</div>
-		
-		
-			<br>
-			<!--=====================-->
+		 <br>
+			<!--=========详情============-->
 			<div class="right_big">
 				<div class="big_img">
 					${product.detail}
-				</div>
-				<div class="right_big_bottom">
-					<ul class="right_big_bottom_ul">
-						<li class="end_safeguard">
-							售后保障
-						</li>
-						<li class="server_safeguard">
-							<span class="server" >
-								厂家服务<br />
-							</span>
-							<span class="server_detial">
-							本产品全国联保，享受三包服务，保质期为：一年质保<br />
-							如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！<br />
-							（注：如厂商在商品介绍中有售后保障的说明，则此商品按照厂家说明执行售后保障服务。）<br />
-							</span>
-						</li>
-						<li class="server_safeguard">
-							<span class="server">
-								靓淘服务<br />
-							</span>
-							<span class="server_detial">
-							本产品全国联保，享受三包服务，保质期为：一年质保<br />
-							如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！<br />
-							（注：如厂商在商品介绍中有售后保障的说明，则此商品按照厂家说明执行售后保障服务。）<br />
-							</span>
-						</li>
-						<li class="server_safeguard">
-							<span class="server">
-								全国联保<br />
-							</span>
-							<span class="server_detial">
-							本产品全国联保，享受三包服务，保质期为：一年质保<br />
-							如因质量问题或故障，凭厂商维修中心或特约维修点的质量检测证明，享受7日内退货，15日内换货，15日以上在质保期内享受免费保修等三包服务！<br />
-							<span class="end">
-								注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，不能确保客户收到的货物与商品图片一致，只能确保为原厂正品货物！<br />
-								若本商城没有及时更新，请大家谅解！
-							</span>
-							</span>
-						</li>
-					</ul>
 				</div>
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<!------------------------------------------------------------------>
+	 <c:import url="../common/bottom.jsp"></c:import>
 
 	</body>
 		<script type="text/javascript">
@@ -494,15 +454,13 @@
 				});
 			});
 			
-			
 			$("#car").click(function(){
 				 $("#form").attr('action','/Cart/Cart/insert.shtml');
 				this.submit();
 			})	
-			
 			$("#buy").click(function() {
 				 $("#form").attr('action','/Cart/orderItem/insert.shtml');
-				this.submit();
+				 this.submit();
 			})	
 		</script>
 </html>

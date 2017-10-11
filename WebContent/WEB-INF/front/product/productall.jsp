@@ -16,67 +16,61 @@
 	<link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/base.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/home.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/front/css/index_style.css" />
+ 
 </head>
 <body>
 
+
 <header id="pc-header">
-	<div class="pc-header-nav">
-		<div class="pc-header-con">
-			<div class="fl pc-header-link" >您好！，欢迎来云购物 <a href="login.html" target="_blank">请登录</a> <a href="register.html" target="_blank"> 免费注册</a></div>
-			<div class="fr pc-header-list top-nav">
+
+      <div class="bg_color">
+		<div class="top_center">
+			<div class="left">
+				<span class="wel"> 欢迎来到靓淘！ </span>
+			</div>
+			<div class="right">
 				<ul>
-					<li>
-						<div class="nav"><i class="pc-top-icon"></i><a href="#">我的订单</a></div>
-						<div class="con">
-							<dl>
-								<dt><a href="">批发进货</a></dt>
-								<dd><a href="">已买到货品</a></dd>
-								<dd><a href="">优惠券</a></dd>
-								<dd><a href="">店铺动态</a></dd>
-							</dl>
-						</div>
-					</li>
-					<li>
-						<div class="nav"><i class="pc-top-icon"></i><a href="#">我的商城</a></div>
-						<div class="con">
-							<dl>
-								<dt><a href="">批发进货</a></dt>
-								<dd><a href="">已买到货品</a></dd>
-								<dd><a href="">优惠券</a></dd>
-								<dd><a href="">店铺动态</a></dd>
-							</dl>
-						</div>
-					</li>
-					<li><a href="#">我的云购</a></li>
-					<li><a href="#">我的收藏</a></li>
-					<li><a href="#">会员中心</a></li>
-					<li><a href="#">客户服务</a></li>
-					<li><a href="#">帮助中心</a></li>
+					<c:if test="${user==null}">
+						<li><a class="login" href="/Cart/user/logout.shtml"
+							target="_blank">请登录</a></li>
+						<li><a href="/Cart/user/add.shtml" target="_blank">快速注册</a></li>
+					</c:if>
+					<c:if test="${user!=null}">
+						<li>${user.username}</li>
+					</c:if>
+					<li><a class="collect" href="">我的收藏</a></li>
+					<li><a class="indent" href="">我的订单</a></li>
+					<li><a class="phone" href="">手机靓淘</a></li>
+					<li><a href="">我的积分</a></li>
+					<li><a href="">我的评价</a></li>
 				</ul>
 			</div>
+			<div class="clearfix"></div>
 		</div>
 	</div>
+	
 	<div class="pc-header-logo clearfix">
 		<div class="pc-fl-logo fl">
-			<h1>
-				<a href="index.html"></a>
-			</h1>
+			<img class="logo_img" src="${pageContext.request.contextPath}/resources/front/img/img/LOGO.png" />
 		</div>
+		
 		<div class="head-form fl">
 			<form class="clearfix">
 				<input class="search-text" accesskey="" id="key" autocomplete="off" placeholder="洗衣机" type="text">
 				<button class="button" onclick="search('key');return false;">搜索</button>
 			</form>
 			<div class="words-text clearfix">
-				<a href="#" class="red">1元秒爆</a>
-				<a href="#">低至五折</a>
-				<a href="#">农用物资</a>
-				<a href="#">佳能相机</a>
-				<a href="#">服装城</a>
-				<a href="#">买4免1</a>
-				<a href="#">家电秒杀</a>
-				<a href="#">农耕机械</a>
-				<a href="#">手机新品季</a>
+			
+			<a href="" style="color: pink;">保湿 | </a>
+				<a href="">面膜 | </a>
+				<a href="">洗面奶 | </a>
+				<a href="">补水 | </a>
+				<a href="">香水 | </a>
+				<a href="">眼霜 | </a>
+				<a href="">口红 | </a>
+				<a href="">护肤套装 | </a>
+				<a href="">BB霜 | </a>
 			</div>
 		</div>
 		<div class="fr pc-head-car">
@@ -87,21 +81,22 @@
 	</div>
 	
 	<!--  顶部    start-->
-	<div class="yHeader">
+	<div class="yHeader"style="background-color: black;">
 		<!-- 导航   start  -->
-		<div class="yNavIndex">
-			<ul class="yMenuIndex" style="margin-left:0">
-				<li style="background:#d1201e"><a href="" target="_blank">云购首页</a></li>
-				<li><a href="" target="_blank">女士护肤 </a></li>
-				<li><a href="" target="_blank">男士护肤</a></li>
-				<li><a href="" target="_blank">洗护染发</a></li>
-				<li><a href="" target="_blank">染发</a></li>
-				<li><a href="" target="_blank">彩妆</a></li>
-				<li><a href="" target="_blank">品牌故事</a></li>
+		<div class="menu" >
+			<ul class="yMenuIndex" style="margin-left:0;background-color: black;">
+				<li><a class="current" href=""> 商城首页 </a></li>
+				<li><a href=""> 美妆商城 </a></li>
+				<li><a href=""> 服装运动 </a></li>
+				<li><a href=""> 家电数码 </a></li>
+				<li><a href=""> 家装家纺 </a></li>
+				<li><a href=""> 淘遍美食 </a></li>
+				<li><a href=""> 国际轻奢 </a></li>
 			</ul>
 		</div>
 	</div>
 </header>
+
 
 
 	<div class="center" style="background: #fff;">
@@ -124,7 +119,7 @@
 							<c:forEach var="productall" items="${productall}">
 								<li>
 									<div class="digit1">
-										<a href=""><img src="/pic/${productall.main_image}"
+										<a href=""><img src="${productall.fulUrl}"
 											width="100%"></a>
 									</div>
 									<br>

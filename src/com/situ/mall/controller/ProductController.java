@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.situ.mall.pojo.Product;
 import com.situ.mall.service.ProductService;
 import com.situ.mall.service.ProductTypeService;
+import com.situ.mall.util.Values;
 
 @Controller
 @RequestMapping(value = "/Product")
@@ -26,9 +27,18 @@ public class ProductController extends BasicController<Product> {
    @Override
 	public String add(ModelMap m, HttpServletRequest req) {
 	       m.put("type",sservice.seleteAllson());
+	       m.put("statuslist", Values.statusa);
 		   return super.add(m, req);
 	}
-   
+   @Override
+public String edit(int id, ModelMap m, HttpServletRequest req) {
+	    Product product=service.getById(id);
+	    m.put("info", product);
+		String name=product.getSub_images();	
+		String[] sub_images=name.split(",");
+		m.put("sub_images", sub_images);	
+		return super.edit(id, m, req);
+}
 
    
    

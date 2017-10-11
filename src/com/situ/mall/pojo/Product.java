@@ -3,6 +3,7 @@ package com.situ.mall.pojo;
 import java.util.Date;
 
 import com.situ.mall.util.QiNiuYun;
+import com.situ.mall.util.Values;
 
 public class Product {
 
@@ -13,6 +14,7 @@ public class Product {
 	 private String main_image;
 	 private String sub_images;
 	 private String detail;
+	 private String status_name;
 	 private double price;
 	 private int stock;
 	 private int status;
@@ -26,7 +28,7 @@ public class Product {
 	}
 	 
 	 public String getFulUrl() {
-		return QiNiuYun.SERVER_ADDRES+main_image;
+		return QiNiuYun.SERVER_ADDRES+"/"+main_image;
 	}
 	 
 	public String getDetail() {
@@ -86,6 +88,9 @@ public class Product {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
+	
+	
+	
 	public int getStatus() {
 		return status;
 	}
@@ -112,5 +117,10 @@ public class Product {
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
 	}
-	 
+
+	public String getStatus_name(int status) {
+		return Values.statusa[status];
+	}
+
+
 }

@@ -32,7 +32,7 @@
 			<div class="fl"></div>
 			<div class="fr pc-login-box">
 				<div class="pc-login-title"><h2>用户注册</h2></div>
-				<form action="/Cart/user/insert.shtml" method="post">
+				<form action="/Cart/user/insert1.shtml" method="post">
 					<div class="pc-sign">
 						<input type="text" placeholder="用户名" name="username">
 					</div>

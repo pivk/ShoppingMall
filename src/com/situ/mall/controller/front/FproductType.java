@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.situ.mall.constant.MallConstant;
 import com.situ.mall.controller.BasicController;
 import com.situ.mall.pojo.Product;
 import com.situ.mall.pojo.ProductType;
@@ -43,13 +44,17 @@ public class FproductType extends BasicController<ProductType>{
 	public String selectByid(int id,ModelMap m){
 		Product product =sservice.getById(id);
 		m.put("product", product);
+		String name=product.getSub_images();	
+		String[] sub_images=name.split(",");
+		m.put("sub_images", sub_images);
 		return "product/product_detail";
 	}
 	
 	@RequestMapping("/productAll")
 	public String productAll(int id,ModelMap m){
-		m.put("productall",sservice.selectByProductTypeid(id));
-		return "product/productall";
+	List<Product> product= sservice.selectByProductTypeid(id);	
+		m.put("productall",product);  
+			return "product/productall";
 	}
 	
 }
