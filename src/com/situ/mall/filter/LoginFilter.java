@@ -19,7 +19,6 @@ public class LoginFilter implements Filter {
 
 	}
 	String match = "/login.jsp,/operator/login,";
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
@@ -30,12 +29,12 @@ public class LoginFilter implements Filter {
 		if (match.indexOf(url + ",") >= 0) {
 			chain.doFilter(request, response);
 		} else {
+			
 			if (req.getSession().getAttribute("user") == null)
 				resp.sendRedirect("/login.jsp");
 			else
 				chain.doFilter(request, response);
 		}
-
 	}
 
 	@Override

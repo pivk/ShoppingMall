@@ -226,8 +226,7 @@
 						</ul>
 						库存： ${product.stock}
 						
-						<input class="right_bottom_addCar" id="car" type="button" value="加入购物车"   />
-						<input class="right_bottom_addCar" id="buy" type="button" value="立即购买" />
+						<input class="right_bottom_addCar"  type="button" onclick="checkout()" value="加入购物车"   />
 						
 						<span class="right_txt_bottom">
 							温馨提示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·支持7天无理由退货
@@ -495,14 +494,9 @@
 			});
 			
 			
-			$("#car").click(function(){
-				 $("#form").attr('action','/Cart/Cart/insert.shtml');
-				this.submit();
-			})	
-			
-			$("#buy").click(function() {
-				 $("#form").attr('action','/Cart/orderItem/insert.shtml');
-				this.submit();
-			})	
+		function check() {
+			var amount= $("#num").val();
+    		 window.location.href="${ctx}/cart/addCart.shtml?productId="+productId+"&amount="+amount
+		}
 		</script>
 </html>

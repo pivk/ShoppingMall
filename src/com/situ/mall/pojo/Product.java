@@ -1,5 +1,6 @@
 package com.situ.mall.pojo;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.situ.mall.util.QiNiuYun;
@@ -13,7 +14,7 @@ public class Product {
 	 private String main_image;
 	 private String sub_images;
 	 private String detail;
-	 private double price;
+	 private BigDecimal price;
 	 private int stock;
 	 private int status;
 	 private Date create_time;
@@ -74,10 +75,10 @@ public class Product {
 		this.sub_images = sub_images;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public int getStock() {
