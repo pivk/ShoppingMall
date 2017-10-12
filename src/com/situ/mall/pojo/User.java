@@ -10,7 +10,7 @@ public class User {
 	 private String  phone;
 	 private String  question;
 	 private String  answer;
-	 private String  role;
+	 private int   role;
 	 private Date create_time;
 	 private Date update_time;
 	 
@@ -59,10 +59,10 @@ public class User {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	public String getRole() {
+	public int getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 	public Date getCreate_time() {

@@ -26,10 +26,13 @@ public class FUserController extends BasicController<com.situ.mall.pojo.User>{
 	
 		return "/login/register";
 	}
-	 @Override
-	public String insert(User t, ModelMap m, HttpServletRequest req) {
+	
+	@RequestMapping("/insert1")
+	public String insert1(User t, ModelMap m, HttpServletRequest req) {
 		 t.setPassword(Md5Utils.getMd5(t.getPassword()));
-		 return super.insert(t, m, req);
+		 t.setRole(1);
+		 service.insert(t);
+		 return "/login/login";
 	}
 
 	 @RequestMapping("/logout")

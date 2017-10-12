@@ -19,24 +19,29 @@ public class UserController extends BasicController<com.situ.mall.pojo.User>{
 	@Resource(name = "UserServiceImpl")
 	private UserService service;
 
-
-
 	 @RequestMapping("/logout")
 	 public String logout (){
 		 return "login/login";
 	 }
-	
+		@RequestMapping("/insert1")
+		public String insert1(User t, ModelMap m, HttpServletRequest req) {
+			 t.setPassword(Md5Utils.getMd5(t.getPassword()));
+			 t.setRole(0);
+			 return "/login/register";
+		} 
 	 
 	 @RequestMapping("/main")
 	 public String main (){
 		 return "login/main";
 	 }
+	 
 	 @RequestMapping("/editpass")
 	 public String editpass (){
 		 return "login/changePwd";
 	 }
-	 @Override
-	public String edit(int id, ModelMap m, HttpServletRequest req) {
+	 
+
+	 public String edit(int id, ModelMap m, HttpServletRequest req) {
 		return  "login/userInfo";
 	}
 	 

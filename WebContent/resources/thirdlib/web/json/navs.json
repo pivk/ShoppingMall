@@ -9,28 +9,13 @@
 	"href" : "/Cart/User/pagelist.action",
 	"spread" : false
 },{
-	"title" : "系统基本参数",
+	"title" : "商品",
 	"icon" : "&#xe631;",
-	"href" : "page/systemParameter/systemParameter.html",
+	"href" : "/Cart/Product/pagelist.action",
 	"spread" : false
 },{
-	"title" : "商品",
-	"icon" : "&#xe630;",
-	"href" : "",
-	"spread" : false,
-	"children" : [
-		{
-			"title" : "商品类别",
-			"icon" : "&#xe61c;",
-			"href" : "/Cart/ProductType/pagelist.action",
-			"spread" : false
-		},
-		{
-			"title" : "商品",
-			"icon" : "&#xe609;",
-			"href" : "/Cart/Product/pagelist.action",
-			"spread" : false,
-			"target" : "_blank"
-		}
-	]
+	"title" : "商品类别",
+	"icon" : "&#xe631;",
+	"href" : "/Cart/ProductType/pagelist.action",
+	"spread" : false
 }]

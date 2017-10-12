@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.situ.mall.util.QiNiuYun;
+import com.situ.mall.util.Values;
 
 public class Product {
 
@@ -15,6 +16,7 @@ public class Product {
 	 private String sub_images;
 	 private String detail;
 	 private BigDecimal price;
+	 private String status_name;
 	 private int stock;
 	 private int status;
 	 private Date create_time;
@@ -27,7 +29,7 @@ public class Product {
 	}
 	 
 	 public String getFulUrl() {
-		return QiNiuYun.SERVER_ADDRES+main_image;
+		return QiNiuYun.SERVER_ADDRES+"/"+main_image;
 	}
 	 
 	public String getDetail() {
@@ -113,5 +115,10 @@ public class Product {
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
 	}
-	 
+
+	public String getStatus_name(int status) {
+		return Values.statusa[status];
+	}
+
+
 }

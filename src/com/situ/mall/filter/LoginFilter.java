@@ -10,6 +10,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.situ.mall.pojo.User;
 
 public class LoginFilter implements Filter {
 
@@ -18,23 +21,36 @@ public class LoginFilter implements Filter {
 		// TODO Auto-generated method stub
 
 	}
-	String match = "/login.jsp,/operator/login,";
+
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		String url = req.getServletPath();
-		String e = url.substring(url.length() - 3) + ",";
-		if (match.indexOf(url + ",") >= 0) {
+		String uri = req.getRequestURI();
+		// /Java1705Web/login.jsp /Java1705Web/loginFilter
+		System.out.println("s" + uri);
+		String requestPath = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
+
+		System.out.println("v" + requestPath);
+
+		if (requestPath.equals("login.action") && requestPath.equals("checkImg")) {
+			// 直接放行
 			chain.doFilter(request, response);
 		} else {
-			
-			if (req.getSession().getAttribute("user") == null)
-				resp.sendRedirect("/login.jsp");
-			else
-				chain.doFilter(request, response);
+			// 都是需要登陆验证
+			// 1.得到Session对象
+			HttpSession session = req.getSession();
+			// 2.得到会话数据
+			User user = (User) session.getAttribute("user");
+			if (user == null) {
+				resp.sendRedirect(req.getContextPath() + "/User/login.jsp");
+				return;
+			}
+			// 验证成功，放行(可以访问jsp或者servlet这些资源)
+			chain.doFilter(request, response);
 		}
+
 	}
 
 	@Override

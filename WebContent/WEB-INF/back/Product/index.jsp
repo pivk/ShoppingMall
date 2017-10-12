@@ -72,8 +72,6 @@
 						<th>商品类别</th>
 						<th>商品副标题</th>
 						<th>商品主图</th>
-						<th>商品副图</th>
-						<th>商品详情</th>
 						<th>价格</th>
 						<th>库存数量</th>
 						<th>状态</th>
@@ -93,9 +91,7 @@
 							<td>${Product.name}</td>
 							<td>${Product.productType.name }</td>
 							<td>${Product.subtitle}</td>
- 							<td><img alt="" src="/pic/${Product.main_image} "></td> 
-							<td><img alt="" src="${Product.sub_images}"></td>
-							<td style="height: 100px"><%-- ${Product.detail} --%></td>
+ 							<td><img alt="" src="${Product.fulUrl} "></td> 
 							<td>${Product.price}</td>
 							<td>${Product.stock}</td>
 							<c:if test="${Product.status==1}">
@@ -149,7 +145,11 @@
 					type : 2,
 					skin : 'layui-layer-rim', //加上边框
 					area : [ '800px', '600px' ], //宽高
-					content : "/Cart/Product/edit.action?id=" + id
+					content : "/Cart/Product/edit.action?id=" + id,
+					offset: [
+					             $(window).height()-550
+					              ,$(window).width()-1100
+					            ] 		
 				});
 			});
 		}
@@ -159,7 +159,11 @@
 					type : 2,
 					skin : 'layui-layer-rim', //加上边框
 					area : [ '800px', '600px' ], //宽高
-					content : "/Cart/Product/add.action"
+					content : "/Cart/Product/add.action",
+					offset: [
+				             $(window).height()-550
+				              ,$(window).width()-1100
+				            ] 
 				});
 			});
 		}

@@ -64,7 +64,7 @@ public class BasicController<T> {
 		if (PageIndexStr != null && !PageIndexStr.equals("")) {
 			PageIndex = Integer.parseInt(PageIndexStr);
 		} else {
-			PageIndex = 1;
+			PageIndex = 0;
 		}
 		int PageSize;
 		if (PageSizeStr != null && !PageSizeStr.equals("")) {

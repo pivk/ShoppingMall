@@ -46,10 +46,7 @@ left JOIN category as t2 ON t2.id=t1.parent_id
 	<select id="selectByProductTypeid" resultMap="productInfo" parameterType="integer">
 		SELECT <include refid="studentColums"/> WHERE category_id=#{id}
 	</select>
-	
-	
-	
-	
+		
 	<select id="seleteAll" resultMap="productInfo">
 		SELECT <include refid="studentColums"/> WHERE p.parent_id=0
 	</select>
@@ -63,14 +60,10 @@ left JOIN category as t2 ON t2.id=t1.parent_id
 	<select id="getTotalCount" resultType="integer">
 		select count(*) FROM product as p INNER JOIN category as t1 on p.category_id=t1.id left JOIN category as t2 ON t2.id=t1.parent_id
 	</select>
-	
-
-	
-	
+		
 	<select id="pagelist" resultMap="productInfo" parameterType="map">
 		SELECT <include refid="studentColums"/> limit #{pageindex},#{pageSize}
 	</select>
-
 
 	<insert id="insert" parameterType="product">
 		insert  product(category_id,name,status,subtitle,main_image,sub_images,detail,price,stock,create_time,update_time)

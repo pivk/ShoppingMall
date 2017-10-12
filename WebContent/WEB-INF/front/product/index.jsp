@@ -37,6 +37,7 @@
 			<div class="clearfix"></div>
 		</div>
 	</div>
+	
 	<!-----------------------2.logo-------------------->
 	<div class="logo_center">
 		<div class="left">
@@ -81,6 +82,8 @@
 			</ul>
 		</div>
 	</div>
+	
+	
 	<!-----------------------4.广告区-------------------->
 	<div class="banner_box">
 		<img class="banner" src="${ctx}/resources/front/img/img/tu9.png" /> <img
