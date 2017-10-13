@@ -2,14 +2,11 @@
 	pageEncoding="utf-8"%>
 <%@include file="../common/head.jsp"%>
 <!DOCTYPE html>
-<html>
-
 <head>
 <meta charset="UTF-8">
 <title>靓淘网</title>
 <link rel="stylesheet" href="${ctx}/resources/front/css/index_style.css" />
 </head>
-
 <body>
 	<!-----------------------1.top-------------------->
 	<div class="bg_color">

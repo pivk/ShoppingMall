@@ -21,6 +21,12 @@ public class Order_itemServiceImpl extends BasicServiceImpl<Order_item> implemen
 		return mappper.seleteByusername(id);
 	}
 
+	@Override
+	public List<Order_item> getByorderno(long orderno) {
+		// TODO Auto-generated method stub
+		return mappper.getByorderno(orderno);
+	}
+
 
 
 

@@ -1,6 +1,7 @@
 package com.situ.mall.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 	private int id;
@@ -19,7 +20,7 @@ public class Order {
 	private Date update_time;
 	private User user;
 	private Shipping shipping;
-	
+	List<Order_item> list;
 	
 	public User getUser() {
 		return user;

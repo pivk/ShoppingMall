@@ -2,40 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.situ.mall.dao.OrderMapper">
  <sql id="studentColums">
-SELECT `order`.*, shipping.receiver_address,`user`.username  FROM `order`INNER JOIN `user`  ON `order`.user_id=`user`.id INNER JOIN shipping on `order`.shipping_id=shipping.id
- </sql>
-
-	<resultMap type="order" id="orderInfo">
+ 
+order_item.product_image,order_item.product_name,order_item.quantity,order_item.total_price,`order`.payment_type,`order`.postage,`order`.id,`user`.username,shipping.receiver_name,shipping.receiver_address
+ FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no </sql>
+  
+   	<resultMap type="Order" id="orderInfo">
 		 <id property="id" column="id" />
-		 <id property="order_no" column="order_no" />
-		 <result property="user_id" column="user_id" />
-		 <result property="shipping_id" column="shipping_id" />
-		 <result property="payment" column="payment" />
-		 <result property="payment_type" column="payment_type" />
-		 <result property="postage" column="postage" />
-		 <result property="status" column="status" />
-		 <result property="payment_time" column="payment_time" />
-		 <result property="status" column="status" />
-		 <result property="end_time" column="end_time" />
-		 <result property="status" column="status" />
-		 <result property="close_time" column="close_time" />
+		 <id property="user_id" column="user_id" />
+		 <result property="order_no" column="order_no" />
+		 <result property="product_id" column="product_id" /> 
+		 <result property="quantity" column="quantity" /> 
+		 <result property="total_price" column="total_price" /> 
 		 <result property="create_time" column="create_time" /> 
 		 <result property="update_time" column="update_time" /> 
-			<association javaType="User" property="user">
-				<result property="name" column="username" />
+		 	<association javaType="User" property="user">
+				<result property="username" column="username" />
 			</association>
-			<association javaType="Shipping" property="shipping">
+			<association javaType="shipping" property="shipping">
+				<result property="receiver_name" column="receiver_name" />
 				<result property="receiver_address" column="receiver_address" />
 			</association>
+		   <collection property="list" ofType="Order_item">
+			    <result property="product_name" column="product_name" />
+			 	<result property="total_price" column="total_price" /> 
+			 	<result property="quantity" column="quantity" /> 
+			 	<result property="product_image" column="product_image" /> 
+		   </collection>
+		
 	</resultMap>
+  
 	
 	<select id="seleteBycondition" resultMap="orderInfo" parameterType="map">
 		SELECT <include refid="studentColums"/>
-		<where>
-		  <if test="name!=null">
-		   and   user.name like '%${name}%'
-		  </if>
-		</where>  
 		limit #{pageIndex},#{pageSize}
 	</select>	
 	
@@ -51,13 +49,16 @@ SELECT `order`.*, shipping.receiver_address,`user`.username  FROM `order`INNER J
 
 	<select id="getTotalCount1" resultType="integer" parameterType="map">
 		select count(*) FROM 
-		`order`INNER JOIN `user`  ON `order`.user_id=`user`.id INNER JOIN shipping on `order`.shipping_id=shipping.id
-		 where  user.name like "#${name}%"
+	 FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no 
+
 	</select>
 
 		
 	<select id="getTotalCount" resultType="integer">
-		select count(*) FROM `order`INNER JOIN `user`  ON `order`.user_id=`user`.id INNER JOIN shipping on `order`.shipping_id=shipping.id
+		select count(*)  FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no 
+
+
+
 	</select>
 	
 
@@ -69,9 +70,10 @@ SELECT `order`.*, shipping.receiver_address,`user`.username  FROM `order`INNER J
 
 
 	<insert id="insert" parameterType="order">
-		insert  order(order_no,user_id,shipping_id,payment,payment_type,postage,status,payment_time,send_time,create_time,end_time,close_time,create_time,update_time)
-		 values (#{order_no},#{user_id},#{shipping_id},#{payment},#{payment_type},#{postage},#{status},#{payment_time},#{send_time},#{end_time},#{close_time},now(),now())
+           INSERT `order`(order_no,user_id,shipping_id,payment,payment_type,postage,status,create_time,update_time ) VALUES 
+		 (#{order_no},#{user_id},#{shipping_id},#{payment},#{payment_type},#{postage},#{status},now(),now())
 	</insert>
+
 
 
 	<select id="getById"  resultMap="orderInfo" parameterType="Integer">

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +19,6 @@
  
 </head>
 <body>
-
-
 <header id="pc-header">
 
       <div class="bg_color">
@@ -96,7 +93,6 @@
 		</div>
 	</div>
 </header>
-
 
 
 	<div class="center" style="background: #fff;">

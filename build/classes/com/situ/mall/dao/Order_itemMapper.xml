@@ -2,12 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.situ.mall.dao.Order_itemMapper">
  <sql id="studentColums">
- product.main_image,product.price, order_item.*,user.username,product.`name` FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id</sql>
-	<resultMap type="order_item" id="order_itemInfo">
+SELECT    order_item.current_unit_price,order_item.product_image,order_item.product_name,order_item.total_price FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id	
+</sql>
+<resultMap type="order_item" id="order_itemInfo">
 		 <id property="id" column="id" />
 		 <id property="user_id" column="user_id" />
 		 <result property="order_no" column="order_no" />
 		 <result property="product_id" column="product_id" /> 
+		 <result property="current_unit_price" column="current_unit_price" /> 
+		 <result property="product_image" column="product_image" /> 
 		 <result property="quantity" column="quantity" /> 
 		 <result property="total_price" column="total_price" /> 
 		 <result property="create_time" column="create_time" /> 
@@ -17,8 +20,6 @@
 			</association>
 			<association javaType="Product" property="product">
 				<result property="name" column="name" />
-				<result property="main_image" column="main_image" />
-				<result property="price" column="price" />
 			</association>
 	</resultMap>
 	
@@ -42,9 +43,8 @@
 		SELECT <include refid="studentColums"/>
 	</select>
 	
-	<select id="seleteByusername" resultMap="order_itemInfo" parameterType="integer">
-		SELECT <include refid="studentColums"/> where user_id=#{id} 
-	</select>
+	
+
 
 	<select id="getTotalCount1" resultType="integer" parameterType="map">
 		select count(*) FROM 
@@ -71,8 +71,8 @@ order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product 
 	</insert>
 
 
-	<select id="getById"  resultMap="order_itemInfo" parameterType="Integer">
-		select  <include refid="studentColums"/> where  order_item.id=#{id}
+	<select id="getByorderno"  resultMap="order_itemInfo" parameterType="long">
+		select  <include refid="studentColums"/> where  order_item.order_no=#{orderno}
 	</select>
 
 

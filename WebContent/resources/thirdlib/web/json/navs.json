@@ -9,6 +9,11 @@
 	"href" : "/Cart/User/pagelist.action",
 	"spread" : false
 },{
+	"title" : "订单列表",
+	"icon" : "icon-text",
+	"href" : "/Cart/Order/pagelist.action",
+	"spread" : false
+},{
 	"title" : "商品",
 	"icon" : "&#xe631;",
 	"href" : "/Cart/Product/pagelist.action",

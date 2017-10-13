@@ -8,15 +8,56 @@ public class Order_item {
  private long order_no;
  private int product_id;
  private int quantity;
+ private String product_name;
+ private String product_image;
+ private double current_unit_price; 
  private double total_price;
  private Date create_time;
   private Date update_time;
   private User user;
   private Product product;
+  
   public Order_item() {
 	// TODO Auto-generated constructor stub
 }
   
+  
+  
+public String getProduct_name() {
+	return product_name;
+}
+
+
+
+public void setProduct_name(String product_name) {
+	this.product_name = product_name;
+}
+
+
+
+public String getProduct_image() {
+	return product_image;
+}
+
+
+
+public void setProduct_image(String product_image) {
+	this.product_image = product_image;
+}
+
+
+
+public double getCurrent_unit_price() {
+	return current_unit_price;
+}
+
+
+public void setCurrent_unit_price(double current_unit_price) {
+	this.current_unit_price = current_unit_price;
+}
+
+
+
 public User getUser() {
 	return user;
 }
@@ -82,5 +123,8 @@ public Date getUpdate_time() {
 public void setUpdate_time(Date update_time) {
 	this.update_time = update_time;
 }
+
+
+
   
 }

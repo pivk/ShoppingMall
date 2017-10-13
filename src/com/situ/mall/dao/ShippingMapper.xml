@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.mall.dao.ShippingMapper">
+
+ <sql id="studentColums">
+shipping.*, `user`.username FROM shipping INNER JOIN `user` on `user`.id=shipping.user_id 
+</sql>
+
+
+
+
+	<select id="getById"  resultType="shipping" parameterType="Integer">
+		select  <include refid="studentColums"/> where user.id=#{id}
+	</select>
+
+
+	
+	
+
+</mapper>

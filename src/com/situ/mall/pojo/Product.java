@@ -3,6 +3,7 @@ package com.situ.mall.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.situ.mall.util.QiNiuYun;
 import com.situ.mall.util.Values;
 
@@ -27,7 +28,7 @@ public class Product {
 	 public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	 
+	 @JsonIgnore
 	 public String getFulUrl() {
 		return QiNiuYun.SERVER_ADDRES+"/"+main_image;
 	}

@@ -1,19 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-	<%@include file="../common/head.jsp" %>
-	
+    pageEncoding="utf-8"%>
+<%@include file="../common/head.jsp" %>
 <!DOCTYPE html>
 <html>
 
 	<head>
 		<meta charset="UTF-8">
 		<title>靓淘网_购物车</title>
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/cart_style.css" />
+		<link rel="stylesheet" href="${ctx}/resources/front/css/cart_style.css" />
+		<script type="text/javascript">
+	
+			 function add(id,stock) {
+				var num=$("num"+id).val()
+				if(num==stock){
+					alert("最多购买"+stock+"件");
+					return
+				}
+	    		 window.location.href="${ctx}/cart/addCart.shtml?productId="+id+"&amount="+1
+				
+			}
+			 function sub(id) {
+					var num=$("num"+id).val();
+					if(num==0){
+					 confirm("是否删除");
+
+						delproduct(id);	
+						return
+					}
+		       window.location.href="${ctx}/cart/addCart.shtml?productId="+id+"&amount="+-1
+			}
+			 
+			 function delproduct(id) {
+				 confirm("是否删除");
+
+			       window.location.href="${ctx}/cart/delCart.shtml?productId="+id
+			 }
+		</script>
 	</head>
 
 	<body>
-				<%@include file="../common/top.jsp" %>
-		
+		<div class="bg_color">
+			<div class="top_center">
+				<div class="left">
+					<span class="wel">欢迎来到靓淘网！</span>
+				</div>
+				<div class="right">
+					<ul>
+						<li>
+							<a class="login" href="login.html" target="_blank">请登录</a>
+						</li>
+						<li>
+							<a href="register.html" target="_blank">快速注册</a>
+						</li>
+						<li>
+							<a class="collect" href="">我的收藏</a>
+						</li>
+						<li>
+							<a class="indent" href="">我的订单</a>
+						</li>
+						<li>
+							<a class=phone href="">手机靓购</a>
+						</li>
+						<li>
+							<a href="">我的积分</a>
+						</li>
+						<li>
+							<a href="">我的评价</a>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
 		<div class="logo_center">
 			<div class="left">
 				<img class="logo_img" src="${ctx}/resources/front/img/img/LOGO.png" />
@@ -58,66 +116,69 @@
 			<img src="${ctx}/resources/front/img/img/157.png" style="margin-left: 142px; " />
 		</div>
 		</div>
-		<div class="car_1">
-			<div class="car_1_top">
-				<img src="${ctx}/resources/front/img/img/158.png" />
-				<p class="car_1_top_p">
-					<span class="span1">
-						活动商品购满¥105.00 , 即可加价换购商品1件&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					</span>
-					<span class="span2">
-						&nbsp;查看换购品
-					</span>
-					<span class="span3">
-						&nbsp;&nbsp;去凑单&gt;
-					</span>
-				</p>
+		<%-- ${buyCartVO} --%>
+		<c:forEach items="${buyCartVO.items}" var="cartItemVO">
+		<input type="hidden" value="${cartItemVO.product.stock}" id="stock">
+			<div class="car_1">
+				<div class="car_1_top">
+					<img src="${ctx}/resources/front/img/img/158.png" />
+					<p class="car_1_top_p">
+						<span class="span1">
+							活动商品购满¥105.00 , 即可加价换购商品1件&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</span>
+						<span class="span2">
+							&nbsp;查看换购品
+						</span>
+						<span class="span3">
+							&nbsp;&nbsp;去凑单&gt;
+						</span>
+					</p>
+				</div>
+				<div class="car_2_bottom">
+					<div class="car_con_1">
+						<input type="checkbox" />
+					</div>
+					<div class="car_con_2">
+						<img src="${cartItemVO.product.fulUrl}" width="50px" height="80px" style="margin-right: 10px"/>
+					</div>
+					<div class="car_con_3">
+						<p class="p_title">${cartItemVO.product.name}</p>
+						<img src="${ctx}/resources/front/img/img/160.png" />
+						<p class="p_seven">&nbsp;支持7天无理由退货</p>
+						<img src="${ctx}/resources/front/img/img/161.png" />
+						<p class="p_select">&nbsp;选包装</p>
+					</div>
+					<ul class="car_ul">
+						<li class="price">
+							<span style="color: #CCCCCC; margin-bottom: 15px;line-height: 20px;">
+								<del>
+									¥ 1699.00<br />
+								</del>
+							</span>
+							<span style="color: #666666;">
+								¥ ${cartItemVO.product.price}
+							</span>
+						</li>
+						<li class="num_select">
+							<input class="car_ul_btn1" type="button" value="-"  id="sub" onclick="sub(${cartItemVO.product.id})"/>
+							<input class="car_ul_text" type="text" placeholder="1" id="num"  value="${cartItemVO.amount}" />
+							<input class="car_ul_btn2" type="button" id="add" onclick="add(${cartItemVO.product.id},${cartItemVO.product.stock})" value="+" />
+						</li>
+						<li class="money">
+							<span style="color: #F41443;">
+								¥ ${cartItemVO.product.price*cartItemVO.amount}
+							</span>
+						</li>
+						<li class="delete">
+							<img src="${ctx}/resources/front/img/img/166.png"  onclick="delproduct(${cartItemVO.product.id})"/>
+						</li>
+					</ul>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="car_2_bottom">
-				<div class="car_con_1">
-					<input type="checkbox" />
-				</div>
-				<div class="car_con_2">
-					<img src="${ctx}/resources/front/img/img/159.png" />
-				</div>
-				<div class="car_con_3">
-					<p class="p_title">${product.name}</p>
-					<img src="${ctx}/resources/front/img/img/160.png" />
-					<p class="p_seven">&nbsp;支持7天无理由退货</p>
-					<img src="${ctx}/resources/front/img/img/161.png" />
-					<p class="p_select">&nbsp;选包装</p>
-				</div>
-				<ul class="car_ul">
-					<li class="price">
-						<span style="color: #CCCCCC; margin-bottom: 15px;line-height: 20px;">
-							<del>
-								¥ 1699.00<br />
-							</del>
-						</span>
-						<span style="color: #666666;">
-							¥ 1499.00
-						</span>
-					</li>
-					<li class="num_select">
-						<input class="car_ul_btn1" type="button" value="-" />
-						<input class="car_ul_text" type="text" placeholder="1" />
-						<input class="car_ul_btn2" type="button" value="+" />
-					</li>
-					<li class="money">
-						<span style="color: #F41443;">
-							¥ 1499.00
-						</span>
-					</li>
-					<li class="delete">
-						<img src="${ctx}/resources/front/img/img/166.png" />
-					</li>
-				</ul>
-			</div>
-			<div class="clearfix"></div>
-		</div>
+		</c:forEach>
 		
-		
-			<div class="blank">
+		<div class="blank">
 			
 		</div>
 		<div class="total">
@@ -126,21 +187,10 @@
 						<input type="checkbox" />
 					</li>
 					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
-					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span style="color: #F41443;">¥7175</span></li>
-					<li class="total_right"><a href="">立即结算</a></li>
+					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span style="color: #F41443;">¥${buyCartVO.totalPrice}</span></li>
+					<li class="total_right"><a href="${ctx}/order/index.shtml">结算</a></li>
 				</ul>
 			</div>
-			
-			<br>
-			
-			
-			
-			
-			
-			
-			
-			
-			
 					<div class="sp">
 			<div class="sp1">
 				<p style="color: rgb(51,51,51);">品质保障</p>
