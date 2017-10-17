@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.situ.mall.dao.Order_itemMapper">
  <sql id="studentColums">
-SELECT    order_item.current_unit_price,order_item.product_image,order_item.product_name,order_item.total_price FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id	
+    order_item.current_unit_price,order_item.product_image,order_item.product_name,order_item.total_price FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id	
 </sql>
 <resultMap type="order_item" id="order_itemInfo">
 		 <id property="id" column="id" />
@@ -10,26 +10,17 @@ SELECT    order_item.current_unit_price,order_item.product_image,order_item.prod
 		 <result property="order_no" column="order_no" />
 		 <result property="product_id" column="product_id" /> 
 		 <result property="current_unit_price" column="current_unit_price" /> 
+		 <result property="product_name" column="product_name" /> 
 		 <result property="product_image" column="product_image" /> 
 		 <result property="quantity" column="quantity" /> 
 		 <result property="total_price" column="total_price" /> 
 		 <result property="create_time" column="create_time" /> 
 		 <result property="update_time" column="update_time" /> 
-			<association javaType="User" property="user">
-				<result property="username" column="username" />
-			</association>
-			<association javaType="Product" property="product">
-				<result property="name" column="name" />
-			</association>
 	</resultMap>
 	
 	<select id="seleteBycondition" resultMap="order_itemInfo" parameterType="map">
 		SELECT <include refid="studentColums"/>
-<!-- 		<where>
-		  <if test="name!=null">
-		   and   order_item.name like '%${name}%'
-		  </if>
-		</where>   -->
+
 		limit #{pageIndex},#{pageSize}
 	</select>	
 	
@@ -53,9 +44,8 @@ order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product 
 
 		
 	<select id="getTotalCount" resultType="integer">
-		select count(*) FROM
-		order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id
-	</select>
+		select count(*) 
+ FROM order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product ON order_item.product_id=product.id		</select>
 	
 
 	
@@ -66,8 +56,8 @@ order_item INNER JOIN `user` on order_item.user_id=`user`.id INNER JOIN product 
 
 
 	<insert id="insert" parameterType="order_item">
-		insert  order_item(user_id,product_id,quantity,total_price,create_time,update_time)
-	 values (#{user_id},#{product_id},#{quantity},#{total_price},now(),now())
+		insert  order_item(user_id,current_unit_price,product_image,product_name,order_no,product_id,quantity,total_price,create_time,update_time)
+	 values (#{user_id},#{current_unit_price},#{product_image},#{product_name},#{order_no},#{product_id},#{quantity},#{total_price},now(),now())
 	</insert>
 
 

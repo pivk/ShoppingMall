@@ -15,7 +15,7 @@ public interface BasicMapper<T> {
 	
 	 T selectByName(String name);
 	
-	 void insert(T t);
+	 int insert(T t);
 	
 	 T getById(int id);
 	

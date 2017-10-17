@@ -2,16 +2,17 @@ package com.situ.mall.controller;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.situ.mall.common.ServerResponse;
 import com.situ.mall.service.BasicService;
 import com.situ.mall.vo.PageBean;
-import com.situ.mall.vo.SelectCondition;
 
 public class BasicController<T> {
 
@@ -77,15 +78,11 @@ public class BasicController<T> {
 		m.put("pageBean", pageBean);
 		return  getTypeName() + "/index";
 	}
-
-	
-	
-	
 	
 	@RequestMapping("/insert")
-	public String insert( T t, ModelMap m, HttpServletRequest req) {
-			getService().insert(t);
-			return "redirect:/" + getTypeName() + "/pagelist.action";
+	public ServerResponse<T>  insert( @RequestBody T t, ModelMap m, HttpServletRequest req) {
+				
+			return  getService().insert(t);
 		
 	}
 	

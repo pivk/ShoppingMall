@@ -102,7 +102,6 @@
 					</dl>
 
 
-
 					<div class="checkout-count clearfix">
 
 						<!-- checkout-count-extend -->

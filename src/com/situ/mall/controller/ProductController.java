@@ -30,6 +30,7 @@ public class ProductController extends BasicController<Product> {
 	       m.put("statuslist", Values.statusa);
 		   return super.add(m, req);
 	}
+   
    @Override
 public String edit(int id, ModelMap m, HttpServletRequest req) {
 	    Product product=service.getById(id);

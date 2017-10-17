@@ -116,19 +116,47 @@
 	<!--表格结束  -->
 
 	<!--分页开始  -->
-	<%@include file="../common/page.jsp"%>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+  <legend>显示完整功能</legend>
+</fieldset>
+ 
+<div id="demo7"></div>
+ 
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"
 		type="text/javascript" charset="utf-8"></script>
+		
+		<script src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/lay/modules/laypage.js" charset="utf-8"></script>
 	<script type="text/javascript">
-		function goPage(pageIndex) {
+	/* 	function goPage(pageIndex) {
 			$("#pageIndex").val(pageIndex);
 			$("#seachForm").submit();
-		}
-
+		} */
+		layui.use(['laypage', 'layer'], function(){
+			  var laypage = layui.laypage
+			  ,layer = layui.layer;
+			  	
+		  laypage.render({
+			    elem: 'demo7'
+			    ,count: '${pageBean.totalPage}'
+			    ,layout: ['count', 'count', 'page', 'next', 'limit', 'skip']
+			    ,jump: function(obj){
+			    	  document.getElementById('biuuu_city_list').innerHTML = function(){
+			    	        var arr = []
+			    	        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+			    	        layui.each(thisData, function(index, item){
+			    	          arr.push('<li>'+ item +'</li>');
+			    	        });
+			    	        return arr.join('');
+			    	      }();
+			    }
+			  });
+		}	)
+		
+		
 		function edit(id) {
 			layui.use('layer', function() {
 				layer.open({

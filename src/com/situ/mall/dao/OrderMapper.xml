@@ -3,7 +3,7 @@
 <mapper namespace="com.situ.mall.dao.OrderMapper">
  <sql id="studentColums">
  
-order_item.product_image,order_item.product_name,order_item.quantity,order_item.total_price,`order`.payment_type,`order`.postage,`order`.id,`user`.username,shipping.receiver_name,shipping.receiver_address
+order_item.product_image,order_item.product_name,order_item.quantity,order_item.total_price,`order`.payment_type,`order`.order_no,`order`.postage,`order`.id,`user`.username,shipping.receiver_name,shipping.receiver_address
  FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no </sql>
   
    	<resultMap type="Order" id="orderInfo">
@@ -11,8 +11,6 @@ order_item.product_image,order_item.product_name,order_item.quantity,order_item.
 		 <id property="user_id" column="user_id" />
 		 <result property="order_no" column="order_no" />
 		 <result property="product_id" column="product_id" /> 
-		 <result property="quantity" column="quantity" /> 
-		 <result property="total_price" column="total_price" /> 
 		 <result property="create_time" column="create_time" /> 
 		 <result property="update_time" column="update_time" /> 
 		 	<association javaType="User" property="user">
@@ -49,7 +47,7 @@ order_item.product_image,order_item.product_name,order_item.quantity,order_item.
 
 	<select id="getTotalCount1" resultType="integer" parameterType="map">
 		select count(*) FROM 
-	 FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no 
+ FROM `order` INNER JOIN `user` ON `user`.id=`order`.user_id INNER JOIN shipping ON `order`.shipping_id=shipping.id INNER JOIN order_item ON `order`.order_no=order_item.order_no 
 
 	</select>
 

@@ -101,6 +101,8 @@ public class FCartController {
 		model.addAttribute("buyCartVO", buyCartVO);
 		return "/shoppingCar/cart";
 	}
+	
+	
 
 	@RequestMapping("/delCart")
 	public String delCart(Integer productId, HttpServletRequest request, HttpServletResponse response) {
@@ -112,7 +114,7 @@ public class FCartController {
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies && cookies.length > 0) {
 			for (Cookie cookie : cookies) {
-				if ("MallConstant.BUYCART_COKKIE".equals(cookie.getName())) {
+				if ("buy_cart_cookie".equals(cookie.getName())) {
 					// 之前已经有购物车
 					// "{\"items\":[{\"product\":{\"id\":45},\"amount\":1}],\"productId\":45}"
 					String value = cookie.getValue();
@@ -124,12 +126,10 @@ public class FCartController {
 				}
 			}
 		}
-		
-			if (buyCartVO != null) {
-
+	if (buyCartVO != null) {
 				Product product = new Product();
 				product.setId(productId);
-
+				
 				CartItemVO cartItem = new CartItemVO();
 				cartItem.setProduct(product);
 			
@@ -143,18 +143,17 @@ public class FCartController {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Cookie cookie = new Cookie(MallConstant.BUYCART_COKKIE, str.toString());
-
+				
+				Cookie cookie = new Cookie("buy_cart_cookie", str.toString());
 				cookie.setMaxAge(60 * 60 * 24);
 				cookie.setPath("/");
-
+				
+				response.addCookie(cookie);
 			}
 			return "redirect:/cart/addCart.shtml";
 		}
 
-	
-	
-	
+	     
 	
 	
 	

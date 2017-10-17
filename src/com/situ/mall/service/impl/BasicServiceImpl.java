@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.situ.mall.common.ServerResponse;
 import com.situ.mall.dao.BasicMapper;
 import com.situ.mall.dao.ProductTypeMapper;
 import com.situ.mall.vo.PageBean;
@@ -25,6 +26,7 @@ public class BasicServiceImpl<T> {
 
 	
 	public PageBean<T> pagelist(int pageindex, int pageSize) {
+		
 		PageBean<T> pageBean = new PageBean<T>();
 		//当前是第几页
 		//private Integer pageIndex;
@@ -39,9 +41,8 @@ public class BasicServiceImpl<T> {
 		pageBean.setTotalPage(totalPage);
 		int index = (pageindex - 1) * pageSize;
         List<T> pageList=getMapper().pagelist(map);
-	    pageBean.setList(pageList);
-	    return pageBean;
-
+        pageBean.setList(pageList);
+	   return  pageBean;
 	}
 	public PageBean<T> seleteBycondition(Integer pageindex, Integer pageSize,String name) {
 		
@@ -61,8 +62,20 @@ public class BasicServiceImpl<T> {
 		
 	}
 
-	public void insert(T t) {
+	public ServerResponse insert(T t) {
 		getMapper().insert(t);
+		 try {
+			int row=getMapper().insert(t);
+			
+			if(row>0){
+				return ServerResponse.createSuccess("添加商品成功");
+			}
+			else {
+				return ServerResponse.createError("添加失败");
+			}
+		} catch (Exception e) {
+			return ServerResponse.createError("添加失败");
+		}
 	}
 	
 

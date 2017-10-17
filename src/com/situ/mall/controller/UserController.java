@@ -1,6 +1,9 @@
 package com.situ.mall.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.situ.mall.listen.OnlineUserListener;
 import com.situ.mall.pojo.User;
 import com.situ.mall.service.UserService;
 import com.situ.mall.util.Md5Utils;
@@ -20,7 +25,15 @@ public class UserController extends BasicController<com.situ.mall.pojo.User>{
 	private UserService service;
 
 	 @RequestMapping("/logout")
-	 public String logout (){
+	 public String logout (HttpServletRequest req, HttpServletResponse resp ){
+			HttpSession session = req.getSession(false);
+		 if(session!=null){
+			 User user=(User)session.getAttribute("user");
+			 List<User> onlineUser=(List<User>) req.getServletContext();
+			 onlineUser.remove(user);
+			 session.invalidate();
+		 }
+		 
 		 return "login/login";
 	 }
 		@RequestMapping("/insert1")
@@ -41,7 +54,7 @@ public class UserController extends BasicController<com.situ.mall.pojo.User>{
 	 }
 	 
 
-	 public String edit(int id, ModelMap m, HttpServletRequest req) {
+	 public String edit(int id, ModelMap m, HttpServletRequest req,HttpServletResponse repose) {
 		return  "login/userInfo";
 	}
 	 
@@ -53,6 +66,7 @@ public class UserController extends BasicController<com.situ.mall.pojo.User>{
           User user=new User();
           user.setUsername(username);
           user.setPassword(password);
+         
 	    User info=service.seleteByusername(user);
 		if ( checkCode == null || checkCode.equals("")|| username == null || username.equals("")
 			|| password == null || password.equals("")) {
@@ -69,10 +83,12 @@ public class UserController extends BasicController<com.situ.mall.pojo.User>{
 		}
 		else {
 			session.setAttribute("user", user);
+			List<User> onlineUserlist=(List<User>) req.getServletContext().getAttribute("onlineUserlist");
+			 onlineUserlist.add(user);
+			 
+			 session.setAttribute("num", onlineUserlist.size());
 			 return "index";
 		}
-          
-
 		 
 	}
 }

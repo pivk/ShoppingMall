@@ -13,6 +13,7 @@ public class BuyCartVO {
 	private List<CartItemVO> items = new ArrayList<CartItemVO>();
 
 	// 继续购物，最后一次产品的id
+	
 	private Integer productId;
 	
 	public void addItem(CartItemVO cartItemVO) {
@@ -49,6 +50,7 @@ public class BuyCartVO {
    
    
 	}
+	
 	
 	
 	@JsonIgnore

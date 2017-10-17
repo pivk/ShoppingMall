@@ -38,10 +38,9 @@ public class OrderController extends BasicController<Order>{
 	@Resource(name = "ProductServiceImpl")
 	private ProductService productservice;
 	
-	    
 	@RequestMapping("/addoder")
 	public String addorder(ModelMap m,HttpServletRequest request,Order order){
-  
+
               order.setStatus(0);
               order.setPostage(12);
               HttpSession session=request.getSession();
@@ -49,7 +48,8 @@ public class OrderController extends BasicController<Order>{
               order.setUser_id(user.getId());
               SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss:SSS");
                long time=System.currentTimeMillis();
-              order.setOrder_no(time);
+               
+               order.setOrder_no(time);
           	ObjectMapper objectMapper = new ObjectMapper();
     		// 只有对象里面不是null的才转换
     		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -83,20 +83,21 @@ public class OrderController extends BasicController<Order>{
     			orderitem.setUser_id(user.getId());
     			orderitem.setOrder_no(time);
                 orderitem.setProduct_id(product.getId());
+                orderitem.setProduct_image(product.getFulUrl());
                 orderitem.setQuantity(item.getAmount());
                 orderitem.setCurrent_unit_price(product.getPrice().doubleValue());
                 orderitem.setTotal_price(item.getAmount()*item.getAmount());
                 order_itemservice.insert(orderitem);
     		}
-
     		service.insert(order);  
-    		return "order/success";
+    		return "Order/success";
     		}
      
 	
 	@RequestMapping("/displayinfo")
 	public String displayinfo(ModelMap m,HttpServletRequest request,long orderno){
-		 m.put("info", order_itemservice.getByorderno(orderno));
+		List<Order_item> order= order_itemservice.getByorderno(orderno);
+		 m.put("info", order);
 		return "/Order/edit";
 	}
 

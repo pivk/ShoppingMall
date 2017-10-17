@@ -3,11 +3,12 @@
 <%@include file="../common/head.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/thirdlib/web//layui/css/layui.css"
-	media="all" />
+	media="all" />	
+
 </head>
 <body class="childrenBody" style="overflow-y:hidden">
 	<c:if test="${info.id==null}">
-		<form action="${pageContext.request.contextPath}/Product/insert.action" id="form-add"  enctype="multipart/form-data" method="post">
+		<form  id="add-Form"  enctype="multipart/form-data"  method="post">
 	</c:if>
 	<c:if test="${info.id!=null}">
 		<form action="${pageContext.request.contextPath}/Product/update.action" id="form-add"  enctype="multipart/form-data" method="post">
@@ -41,6 +42,7 @@
 						lay-verify="required" value="${info.stock}" placeholder="请输入商品价格">
 				</div>
 			</div>
+			
 			<div class="layui-inline">
 				<label class="layui-form-label">商品类别</label>
 				<div class="layui-input-inline">
@@ -54,10 +56,9 @@
 						     </c:if>
 						</c:forEach>	
 					</select>
-					
-
-				</div>
+						</div>
 			</div>
+			
 			<div class="layui-inline">
 				<label class="layui-form-label">商品状态</label>
 				<div class="layui-input-inline">
@@ -107,7 +108,7 @@
 
 			<div class="layui-form-item">
 				<div class="layui-input-block">
-					<button type="submit" class="layui-btn layui-btn-primary">立即提交</button>
+					<button type="button" onclick="submitForm()" class="layui-btn layui-btn-primary">立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
@@ -136,7 +137,8 @@
 		}
 	
 	
-	var myKindEditor ;
+	
+	var myKindEditor;
 	KindEditor.ready(function(K) {
 		var kingEditorParams = {
 				//指定上传文件参数名称
@@ -149,7 +151,6 @@
 		}
 		var editor = K.editor(kingEditorParams);
 		//多图片上传
-		
 		K('#picFileUpload').click(function() {
 			editor.loadPlugin('multiimage', function() {
 				editor.plugin.multiImageDialog({
@@ -170,8 +171,38 @@
 		});
 		//富文本编辑器
 		myKindEditor = KindEditor.create('#form-add[name=detail]', kingEditorParams);
-		
 	});
+
+	function submitForm() {
+		var option={
+				url:"/Cart/Product/insert.action",
+				type:"post",
+				data:$("#add-Form").serialize(),
+				dataType:"json",
+				success:function(data){
+					if(data.status==0){
+						layrer.confirm(
+								'添加成功',
+		           				{btn:['关闭','跳转到列表界面']},
+		           				function(index){
+		           					layer.close(index);
+		           				},
+		           				function(){
+		           					window.location.href = "${ctx}/product/findAll.action";
+		           				}
+						)}
+					else{
+							layer.msg("添加失败");
+						}
+						
+					}					
+				}
+					$.ajax(options)
+					
+		}
+		
+	
+	
 	
 	</script>
 </body>

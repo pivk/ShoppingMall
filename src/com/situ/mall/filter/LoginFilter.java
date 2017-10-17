@@ -29,24 +29,21 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String uri = req.getRequestURI();
 		// /Java1705Web/login.jsp /Java1705Web/loginFilter
-		System.out.println("s" + uri);
 		String requestPath = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
-
-		System.out.println("v" + requestPath);
-
-		if (requestPath.equals("login.action") && requestPath.equals("checkImg")) {
-			// 直接放行
-			chain.doFilter(request, response);
-		} else {
+		
+		if (requestPath.equals("index.shtml")) {
 			// 都是需要登陆验证
 			// 1.得到Session对象
 			HttpSession session = req.getSession();
 			// 2.得到会话数据
 			User user = (User) session.getAttribute("user");
 			if (user == null) {
-				resp.sendRedirect(req.getContextPath() + "/User/login.jsp");
+				resp.sendRedirect(req.getContextPath() + "/user/login.shtml");
 				return;
 			}
+			chain.doFilter(request, response);
+		} else {
+		
 			// 验证成功，放行(可以访问jsp或者servlet这些资源)
 			chain.doFilter(request, response);
 		}

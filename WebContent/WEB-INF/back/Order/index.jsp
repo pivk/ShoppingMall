@@ -72,10 +72,8 @@
 						<th>用户名</th>
 						<th>总金额</th>
 						<th>支付方式</th>
-						<th>邮费</th>
-						<th>详情</th>
-						<th>创建时间</th>
-						<th>操作</th>
+					    
+						<th>订单详情</th>
 					</tr>
 				</thead>
 
@@ -83,17 +81,16 @@
 
 					<c:forEach var="Order" items="${list}">
 						<tr>
-							<td><input type="checkbox" name="selectIds"
-								class="layui-input-block" lay-filter="choose"
-								value="${Order.id}"></td>
+						
 							<td>${Order.id}</td>
-							<td>${Order.user.username}</td>
-							<td>${Order.total_price}</td>
-							<c:if test="${Order.role==1}">
+							<td>${Order.order_no}</td>
+							<td>${Order.payment}</td>
+								<td>${Order.user.username}</td>
+							<c:if test="${Order.status==1}">
 								<td><label class="layui-btn ">
 									已付款</label></td>
 							</c:if>
-							<c:if test="${Order.role==0}">
+							<c:if test="${Order.status==0}">
 								<td><label class="layui-btn layui-btn-danger">
 									未付款</label></td>
 							</c:if>
@@ -101,7 +98,7 @@
 									pattern='yyyy-MM-dd' /></td>
 							<td><a class="layui-btn layui-btn-mini"
 								href="javascript:edit(${Order.order_no});"><i
-									class="iconfont icon-edit"></i> 编辑</a> <a
+									class="iconfont icon-edit"></i>详情</a> <a
 								class="layui-btn layui-btn-danger layui-btn-mini "
 								data-id="'+data[i].id+'"
 								href="javascript:del(${Order.id});"><i
@@ -128,13 +125,13 @@
 			$("#seachForm").submit();
 		}
 
-		function edit(id) {
+		function edit(orderno) {
 			layui.use('layer', function() {
 				layer.open({
 					type : 2,
 					skin : 'layui-layer-rim', //加上边框
 					area : [ '800px', '600px' ], //宽高
-					content : "/Cart/Order/displayinfo.action?orderno=" + id
+					content : "/Cart/Order/displayinfo.action?orderno=" +orderno
 				});
 			});
 		}
