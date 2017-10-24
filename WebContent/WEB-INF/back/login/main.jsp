@@ -17,8 +17,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/echarts.simple.min.js"></script>
 
 <script type="text/javascript">
+window.onload = function(){
 var myChart = echarts.init(document.getElementById('main'));
-
 // 指定图表的配置项和数据
 var option = {
     title: {
@@ -40,6 +40,7 @@ var option = {
 };
 // 使用刚指定的配置项和数据显示图表。
 myChart.setOption(option);
+}
 </script>
 </head>
 <body class="childrenBody">
@@ -111,6 +112,7 @@ myChart.setOption(option);
 	<div class="row">
 		<div class="sysNotice col" id="main" style="width: 600px;height:400px;">
 			<blockquote class="layui-elem-quote title">更新日志</blockquote>
+			
 		</div>
 		<div class="sysNotice col">
 			<blockquote class="layui-elem-quote title">系统基本参数</blockquote>

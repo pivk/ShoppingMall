@@ -20,6 +20,7 @@ import com.situ.mall.controller.BasicController;
 import com.situ.mall.pojo.Order_item;
 import com.situ.mall.pojo.Product;
 import com.situ.mall.pojo.User;
+import com.situ.mall.service.OrderService;
 import com.situ.mall.service.Order_itemService;
 import com.situ.mall.service.ProductService;
 import com.situ.mall.service.ShippingService;
@@ -33,6 +34,9 @@ public class ForderController extends BasicController<Order_item>{
  
 	@Resource(name = "ShippingServiceImpl")
 	private ShippingService sservice;
+	
+	@Resource(name = "OrderServiceImpl")
+	private OrderService Orderservice;
 	
 	@Autowired
 	private ProductService productService;
@@ -75,5 +79,9 @@ public class ForderController extends BasicController<Order_item>{
 		m.put("buyCartVO",buyCartVO );	
 		return "order/order";
 	}
+	
+
+	
+	
 	
 }

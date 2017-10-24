@@ -29,7 +29,7 @@ public class LoginFilter implements Filter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		String uri = req.getRequestURI();
 		// /Java1705Web/login.jsp /Java1705Web/loginFilter
-		String requestPath = uri.substring(uri.lastIndexOf("/") + 1, uri.length());
+		String requestPath = uri.substring(uri.lastIndexOf("/") + 1, uri.length()-4);
 		
 		if (requestPath.equals("index.shtml")) {
 			// 都是需要登陆验证
@@ -37,8 +37,9 @@ public class LoginFilter implements Filter {
 			HttpSession session = req.getSession();
 			// 2.得到会话数据
 			User user = (User) session.getAttribute("user");
+			String id = uri.substring(uri.lastIndexOf("=") + 1, uri.length());
 			if (user == null) {
-				resp.sendRedirect(req.getContextPath() + "/user/login.shtml");
+				resp.sendRedirect(req.getContextPath() + "/user/login.shtml？id="+id);
 				return;
 			}
 			chain.doFilter(request, response);

@@ -7,9 +7,7 @@ import java.util.Map;
 
 import com.situ.mall.common.ServerResponse;
 import com.situ.mall.dao.BasicMapper;
-import com.situ.mall.dao.ProductTypeMapper;
 import com.situ.mall.vo.PageBean;
-import com.situ.mall.vo.SelectCondition;
 
 public class BasicServiceImpl<T> {
 
@@ -25,14 +23,12 @@ public class BasicServiceImpl<T> {
 	}
 
 	
-	public PageBean<T> pagelist(int pageindex, int pageSize) {
-		
+	public PageBean<T> pagelist(int pageindex, int pageSize) {		
 		PageBean<T> pageBean = new PageBean<T>();
 		//当前是第几页
 		//private Integer pageIndex;
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("pageindex", pageindex);
-		map.put("pageSize", pageSize);
+		
 		pageBean.setPageIndex(pageindex);
 		pageBean.setPageSize(pageSize);
 		int totalCount = getMapper().getTotalCount();
@@ -40,12 +36,14 @@ public class BasicServiceImpl<T> {
 		int totalPage = (int) Math.ceil(1.0 * totalCount / pageSize);
 		pageBean.setTotalPage(totalPage);
 		int index = (pageindex - 1) * pageSize;
-        List<T> pageList=getMapper().pagelist(map);
+		map.put("pageSize", pageSize);
+        map.put("pageindex", index);
+		List<T> pageList=getMapper().pagelist(map);
         pageBean.setList(pageList);
 	   return  pageBean;
 	}
-	public PageBean<T> seleteBycondition(Integer pageindex, Integer pageSize,String name) {
-		
+	
+	public PageBean<T> seleteBycondition(Integer pageindex, Integer pageSize,String name) {		
 		PageBean<T> pageBean = new PageBean<T>();
 		// 当前是第几页
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -105,7 +103,6 @@ public class BasicServiceImpl<T> {
 	public List<T> seleteAll() {
 		return getMapper().seleteAll();
 	}
-	
 	public int getTotalCount() {
 		return getMapper().getTotalCount();	
 	}

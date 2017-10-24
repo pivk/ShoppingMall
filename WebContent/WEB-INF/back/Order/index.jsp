@@ -94,6 +94,14 @@
 								<td><label class="layui-btn layui-btn-danger">
 									未付款</label></td>
 							</c:if>
+							<c:if test="${Order.postage==1}">
+								<td><label class="layui-btn ">
+									货到付款</label></td>
+							</c:if>
+							<c:if test="${Order.postage==0}">
+								<td><label class="layui-btn layui-btn-danger">
+									在线付款</label></td>
+							</c:if>
 							<td><fmt:formatDate value="${Order.create_time }"
 									pattern='yyyy-MM-dd' /></td>
 							<td><a class="layui-btn layui-btn-mini"
@@ -120,10 +128,12 @@
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"
 		type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		function goPage(pageIndex) {
-			$("#pageIndex").val(pageIndex);
-			$("#seachForm").submit();
-		}
+	function goPage(pageIndex) {
+		$("#pageIndex1").val(pageIndex);
+		$("#seachForm1").submit();
+	
+	} 
+
 
 		function edit(orderno) {
 			layui.use('layer', function() {

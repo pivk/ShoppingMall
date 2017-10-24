@@ -11,12 +11,11 @@
 	<meta name="Description" content="">
 	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
 	<meta name="renderer" content="webkit">
-	<title>云购物商城-所有分类</title>
+	<title>靓套商城</title>
 	<link rel="shortcut icon" type="image/x-icon" href="img/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/base.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/home.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/front/css/index_style.css" />
- 
 </head>
 <body>
 <header id="pc-header">
@@ -120,8 +119,7 @@
 									</div>
 									<br>
 									<div class="digit2">
-										<a
-											href="/Cart/productType/selectByid.shtml?id=${productall.id}">${productall.name}</a>
+										<a href="${pageContext.request.contextPath}/productType/selectByid.shtml?id=${productall.id}">${productall.name}</a>
 									</div>
 								</li>
 							</c:forEach>

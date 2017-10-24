@@ -92,14 +92,16 @@
 				<c:forEach var="r1" items="${type}">
 					<c:if test="${r1.parent_id==0}">
 						<span>  ${r1.name}  </span>
+							
 					</c:if>
 					<c:forEach var="r2" items="${type}">
 						<c:if test="${r1.id==r2.parent_id}">
 							<p>
-								<a href="/Cart/productType/productAll.shtml?id=${r2.id}">${r2.name}</a>
+								<a href="${ctx}/productType/productAll.shtml?id=${r2.id}">${r2.name}</a>
 							<p>
 						</c:if>
 					</c:forEach>
+				
 				</c:forEach>
 			</div>
 			<div class="nav_right">
@@ -255,7 +257,6 @@
 		</div>
 	</div>
 
-	<!-----------------------8.广告条-------------------->
 
 	<!-----------------------9.靓淘服装区-------------------->
 	<div class="cloth">
@@ -360,7 +361,7 @@
 			$(".circle li").removeClass("current").eq(m).addClass("current");
 			$(".banner_box .banner").hide().eq(m).show();
 		}
-		t = setInterval(changeImg, 1000);
+		t = setInterval(changeImg, 800);
 		$(".banner_box").mouseenter(function() {
 			clearInterval(t);
 		}).mouseleave(function() {

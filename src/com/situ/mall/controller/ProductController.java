@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.situ.mall.common.ServerResponse;
 import com.situ.mall.pojo.Product;
 import com.situ.mall.service.ProductService;
 import com.situ.mall.service.ProductTypeService;
@@ -32,15 +34,20 @@ public class ProductController extends BasicController<Product> {
 	}
    
    @Override
-public String edit(int id, ModelMap m, HttpServletRequest req) {
-	    Product product=service.getById(id);
-	    m.put("info", product);
-		String name=product.getSub_images();	
-		String[] sub_images=name.split(",");
-		m.put("sub_images", sub_images);	
-		return super.edit(id, m, req);
-}
+	public String edit(int id, ModelMap m, HttpServletRequest req) {
+		    Product product=service.getById(id);
+		    m.put("info", product);
+			String name=product.getSub_images();	
+			String[] sub_images=name.split(",");
+			m.put("sub_images", sub_images);	
+			return super.edit(id, m, req);
+	}
 
    
+	@RequestMapping("/show")
+	@ResponseBody
+	public ServerResponse show(Integer id) {
+		return service.show(id);
+	}
    
 }

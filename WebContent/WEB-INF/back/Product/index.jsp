@@ -12,7 +12,9 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/thirdlib/web/css/news.css"
 	media="all" />
+
 </head>
+
 
 <body class="childrenBody">
 	<!-- 顶部开始 -->
@@ -96,11 +98,11 @@
 							<td>${Product.stock}</td>
 							<c:if test="${Product.status==1}">
 								<td><label class="layui-btn ">
-									上架</label></td>
+									下架</label></td>
 							</c:if>
 							<c:if test="${Product.status==0}">
 								<td><label class="layui-btn layui-btn-danger">
-										下架</label></td>
+										上架</label></td>
 							</c:if>
 							<c:if test="${Product.status==2}">
 								<td><label class="layui-btn layui-btn-danger">
@@ -112,11 +114,13 @@
 									pattern='yyyy-MM-dd' /></td>
 							<td><a class="layui-btn layui-btn-mini"
 								href="javascript:edit(${Product.id});"><i
-									class="iconfont icon-edit"></i> 编辑</a> <a
-								class="layui-btn layui-btn-danger layui-btn-mini "
-								data-id="'+data[i].id+'"
-								href="javascript:del(${Product.id});"><i
-									class="layui-icon">&#xe640;</i> 删除</a></td>
+									class="iconfont icon-edit"></i> 修改
+									</a> 
+<%-- 									<a href="/Cart/Product/show.action?id=${Product.id}">fsda</a>
+ --%>							<button class="layui-btn layui-btn-danger layui-btn-mini " data-id="'+data[i].id+'"  type="button" onclick="show(${Product.id})">
+								<i class="layui-icon">&#xe640;</i> 上架</button> 
+	
+									</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -127,69 +131,84 @@
 
 	<!--分页开始  -->
 	<%@include file="../common/page.jsp"%>
-
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"
-		type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/lay/modules/laypage.js" charset="utf-8"></script>
+	
 	<script type="text/javascript">
-		function goPage(pageIndex) {
-			$("#pageIndex").val(pageIndex);
-			$("#seachForm").submit();
-		}
-
-		function edit(id) {
-			layui.use('layer', function() {
-				layer.open({
-					type : 2,
-					skin : 'layui-layer-rim', //加上边框
-					area : [ '800px', '600px' ], //宽高
-					content : "/Cart/Product/edit.action?id=" + id,
-					offset: [
-					             $(window).height()-550
-					              ,$(window).width()-1100
-					            ] 		
-				});
-			});
-		}
-		function add() {
-			layui.use('layer', function() {
-				layer.open({
-					type : 2,
-					skin : 'layui-layer-rim', //加上边框
-					area : [ '800px', '600px' ], //宽高
-					content : "/Cart/Product/add.action",
-					offset: [
-				             $(window).height()-550
-				              ,$(window).width()-1100
-				            ] 
-				});
-			});
-		}
-
-		/*批量删除 */
-		function selectall() {
-			$("input[name=selectIds]").prop("checked",
-					$("#selectAll").is(":checked"));
-		}
-
-		function deleteAll() {
-			var isDel = confirm("您确认要删除吗？");
-			if (isDel) {
-				//要删除
-				$("#mainForm").attr("action",
-						"/Cart/Product/deleteAll.action");
-				$("#mainForm").submit();
+		    function show(id) {
+				 var options={
+						 dataType:"json",
+						 data: '{"id":"'+id+'"}',
+						 url:"/Cart/Product/show.action",
+						 type : "post",
+						 success:function(data){
+								if(data.status==0){
+									layui.use('layer', function(){
+										  var layer = layui.layer;
+										  	layer.msg(data.msg);
+										}); 				
+								}
+								}};
+						$.ajax(options)
 			}
-		}
 
-		function del(id) {
-			if (confirm("确定删除？")) {
-				location.href = "/Cart/Product/delete.action?id=" + id;
+			function goPage(pageIndex) {
+				$("#pageIndex1").val(pageIndex);
+				$("#seachForm1").submit();
+			
+			} 
+		
+	
+			function edit(id) {
+				layui.use('layer', function() {
+					layer.open({
+						type : 2,
+						skin : 'layui-layer-rim', //加上边框
+						area : [ '800px', '600px' ], //宽高
+						content : "/Cart/Product/edit.action?id=" + id,
+						offset: [
+						             $(window).height()-550
+						              ,$(window).width()-1100
+						            ] 		
+					});
+				});
 			}
-		}
+			function add() {
+				layui.use('layer', function() {
+					layer.open({
+						type : 2,
+						skin : 'layui-layer-rim', //加上边框
+						area : [ '800px', '600px' ], //宽高
+						content : "/Cart/Product/add.action",
+						offset: '30px' 
+					});
+				});
+			}
+	
+			/*批量删除 */
+			function selectall() {
+				$("input[name=selectIds]").prop("checked",
+						$("#selectAll").is(":checked"));
+			}
+	
+			function deleteAll() {
+				var isDel = confirm("您确认要删除吗？");
+				if (isDel) {
+					//要删除
+					$("#mainForm").attr("action",
+							"/Cart/Product/deleteAll.action");
+					$("#mainForm").submit();
+				}
+			}
+	
+			function del(id) {
+				if (confirm("确定删除？")) {
+					location.href = "/Cart/Product/delete.action?id=" + id;
+				}
+			}
 	</script>
+	
 
 
 

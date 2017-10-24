@@ -14,6 +14,8 @@
 	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/front/img/icon/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/base.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/front/css/home.css">
+
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
 	<script type="text/javascript">
  		function refreshCode() {
 			$("#codeImg").attr("src",
@@ -33,6 +35,36 @@
 	</div>
 </header>
 <section>
+	<div class="pc-login-bj">
+		<div class="center clearfix">
+			<div class="fl"></div>
+			<div class="fr pc-login-box">
+				<div class="pc-login-title"><h2>用户登录</h2></div>
+				<form action="/Cart/user/login.shtml" method="post">
+					<div class="pc-sign">
+						<input type="text" name="username" placeholder="用户名">
+					</div>
+					<div class="pc-sign">
+						<input type="password" name="password" placeholder="请输入您的密码">
+					</div>
+					
+					<div class="pc-sign">
+						<input type="text" name="checkCode"  style="width: 100px;">
+					  <img id="codeImg" src="${pageContext.request.contextPath}/checkImg" width="116" height="36" onclick="refreshCode();" style="margin-left: 50px">
+					</div>
+					
+					<div class="pc-submit-ss">
+						<input type="submit" value="登录" placeholder="">
+					</div>
+					<div class="pc-reg">
+						<a href="#">忘记密码</a>
+						<a href="/Cart/user/add.shtml" class="red">免费注册</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<div class="pc-login-bj">
 		<div class="center clearfix">
 			<div class="fl"></div>

@@ -46,12 +46,14 @@
 				</div>
 				<div class="right">
 					<ul>
-						<li>
-							<a class="login" href="login.html" target="_blank">请登录</a>
-						</li>
-						<li>
-							<a href="register.html" target="_blank">快速注册</a>
-						</li>
+					<c:if test="${user==null}">
+						<li><a class="login" href="/Cart/user/logout.shtml"
+							target="_blank">请登录</a></li>
+						<li><a href="/Cart/user/add.shtml" target="_blank">快速注册</a></li>
+					</c:if>
+					<c:if test="${user!=null}">
+						<li>${user.username}</li>
+					</c:if>
 						<li>
 							<a class="collect" href="">我的收藏</a>
 						</li>
@@ -188,10 +190,12 @@
 					</li>
 					<li style="margin-left: 8px;margin-right: 265px;">全选</li>
 					<li style="margin-left: 265px;margin-right: 18px;">总金额（已免运费）：<span style="color: #F41443;">¥${buyCartVO.totalPrice}</span></li>
-					<li class="total_right"><a href="${ctx}/order/index.shtml">结算</a></li>
+			
+					<li class="total_right"><a href="${ctx}/order/index.shtml?id">结算</a></li>
+			
 				</ul>
 			</div>
-					<div class="sp">
+			<div class="sp">
 			<div class="sp1">
 				<p style="color: rgb(51,51,51);">品质保障</p>
 				<p style="font-size: 12px; color: #808080;margin-top: 5px;">品质护航 购物无忧</p>

@@ -42,7 +42,7 @@
 
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/thirdlib/kindeditor/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/thirdlib/kindeditor/lang/zh_CN.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/jquery/jquery.form.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
 </body>
 </html>

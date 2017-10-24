@@ -8,10 +8,11 @@
 </head>
 <body class="childrenBody" style="overflow-y:hidden">
 	<c:if test="${info.id==null}">
-		<form  id="add-Form"  enctype="multipart/form-data"  method="post">
+	<form  id="form-add"  enctype="multipart/form-data"  method="post">
+	<input value="1" name="status" type="hidden"> 
 	</c:if>
 	<c:if test="${info.id!=null}">
-		<form action="${pageContext.request.contextPath}/Product/update.action" id="form-add"  enctype="multipart/form-data" method="post">
+	<form action="${pageContext.request.contextPath}/Product/update.action" id="form-add"  enctype="multipart/form-data" method="post">
 	   <input type="hidden" name="id" value="${info.id}">
 	</c:if>
 			<div class="layui-inline">
@@ -65,10 +66,10 @@
 					<select name="status" class="form-control">
 							  	  <c:forEach var="r" items="${statuslist}" varStatus="v">
 							  	     <c:if test="${info.status==v.index}">
-							  	     	<option selected="selected" value="${info.status }">${r }</option>
+							  	     	<option selected="selected" value="${info.status}">${r}</option>
 							  	      </c:if>
 							  	     <c:if test="${info.status!=v.index}">
-							  	     	<option value="${info.status }">${r }</option>
+							  	     	<option value="${info.status}">${r}</option>
 							  	      </c:if>
 							  	  </c:forEach>
 				  	</select>				
@@ -112,15 +113,14 @@
 					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
 				</div>
 			</div>
-	
 
 
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/thirdlib/kindeditor/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/resources/thirdlib/kindeditor/lang/zh_CN.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/jquery/jquery.form.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
-	<script type="text/javascript">
-	
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
+<script type="text/javascript">
+
 	function uploadPic(){
 		//定义参数
 		var options = {
@@ -135,6 +135,7 @@
 		
 		 $("#form-add").ajaxSubmit(options);
 		}
+	
 	
 	
 	
@@ -177,11 +178,12 @@
 		var option={
 				url:"/Cart/Product/insert.action",
 				type:"post",
-				data:$("#add-Form").serialize(),
+				data:$("#form-add").serialize(),
 				dataType:"json",
 				success:function(data){
 					if(data.status==0){
-						layrer.confirm(
+					layui.use('layer', function() {
+						layer.confirm(
 								'添加成功',
 		           				{btn:['关闭','跳转到列表界面']},
 		           				function(index){
@@ -190,14 +192,18 @@
 		           				function(){
 		           					window.location.href = "${ctx}/product/findAll.action";
 		           				}
-						)}
+						)
+					});
+					}
 					else{
+						layui.use('layer', function() {
 							layer.msg("添加失败");
+						});
 						}
 						
 					}					
 				}
-					$.ajax(options)
+					$.ajax(option)
 					
 		}
 		

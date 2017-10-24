@@ -126,10 +126,12 @@
 		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"
 		type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
-		function goPage(pageIndex) {
-			$("#pageIndex").val(pageIndex);
-			$("#seachForm").submit();
-		}
+	function goPage(pageIndex) {
+		$("#pageIndex1").val(pageIndex);
+		$("#seachForm1").submit();
+	
+	} 
+
 
 		function edit(id) {
 			layui.use('layer', function() {

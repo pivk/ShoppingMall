@@ -22,13 +22,14 @@
 			<form
 				action="${pageContext.request.contextPath}/ProductType/searchByCondition.action"
 				method="post" id="seachForm">
-				<input type="hidden" name="pageIndex" id="pageIndex">
+				<input type="hidden" name="pageIndex" value="1" id="pageIndex">
 				<div class="layui-input-inline">
 					<input type="text" name="name" value="" placeholder="请输入类别名称"
 						class="layui-input search_input">
 				</div>
 				<button class="layui-btn search_btn">查询</button>
 			</form>
+			
 		</div>
 		<div class="layui-inline">
 			<a class="layui-btn layui-btn-normal" href="javascript:add();">添加</a>
@@ -115,47 +116,21 @@
 	</div>
 	<!--表格结束  -->
 
-	<!--分页开始  -->
-	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-  <legend>显示完整功能</legend>
-</fieldset>
- 
-<div id="demo7"></div>
- 
 
-	<script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"
-		type="text/javascript" charset="utf-8"></script>
-		
-		<script src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/lay/modules/laypage.js" charset="utf-8"></script>
+
+	<%@include file="../common/page.jsp"%>
+
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/layui.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${pageContext.request.contextPath}/resources/thirdlib/web/layui/lay/modules/laypage.js" charset="utf-8"></script>
 	<script type="text/javascript">
-	/* 	function goPage(pageIndex) {
-			$("#pageIndex").val(pageIndex);
-			$("#seachForm").submit();
-		} */
-		layui.use(['laypage', 'layer'], function(){
-			  var laypage = layui.laypage
-			  ,layer = layui.layer;
-			  	
-		  laypage.render({
-			    elem: 'demo7'
-			    ,count: '${pageBean.totalPage}'
-			    ,layout: ['count', 'count', 'page', 'next', 'limit', 'skip']
-			    ,jump: function(obj){
-			    	  document.getElementById('biuuu_city_list').innerHTML = function(){
-			    	        var arr = []
-			    	        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-			    	        layui.each(thisData, function(index, item){
-			    	          arr.push('<li>'+ item +'</li>');
-			    	        });
-			    	        return arr.join('');
-			    	      }();
-			    }
-			  });
-		}	)
+	
+		function goPage(pageIndex) {
+			$("#pageIndex1").val(pageIndex);
+			$("#seachForm1").submit();
 		
+		} 
+	
 		
 		function edit(id) {
 			layui.use('layer', function() {

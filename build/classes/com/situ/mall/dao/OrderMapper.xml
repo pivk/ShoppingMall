@@ -10,6 +10,7 @@ order_item.product_image,order_item.product_name,order_item.quantity,order_item.
 		 <id property="id" column="id" />
 		 <id property="user_id" column="user_id" />
 		 <result property="order_no" column="order_no" />
+		 <result property="postage" column="postage" /> 
 		 <result property="product_id" column="product_id" /> 
 		 <result property="create_time" column="create_time" /> 
 		 <result property="update_time" column="update_time" /> 

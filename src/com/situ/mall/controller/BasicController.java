@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.situ.mall.common.ServerResponse;
 import com.situ.mall.service.BasicService;
@@ -65,7 +66,7 @@ public class BasicController<T> {
 		if (PageIndexStr != null && !PageIndexStr.equals("")) {
 			PageIndex = Integer.parseInt(PageIndexStr);
 		} else {
-			PageIndex = 0;
+			PageIndex = 1;
 		}
 		int PageSize;
 		if (PageSizeStr != null && !PageSizeStr.equals("")) {
@@ -80,7 +81,8 @@ public class BasicController<T> {
 	}
 	
 	@RequestMapping("/insert")
-	public ServerResponse<T>  insert( @RequestBody T t, ModelMap m, HttpServletRequest req) {
+	@ResponseBody
+	public ServerResponse<T>  insert(T t, ModelMap m, HttpServletRequest req) {
 				
 			return  getService().insert(t);
 		
@@ -95,7 +97,7 @@ public class BasicController<T> {
 		if (pageIndexStr != null) {
 		  PageIndex = pageIndexStr;
 		}else {
-			PageIndex=0;
+			PageIndex=1;
 		}
 		Integer PageSize;// 默认每一页数量
 		if (pageSizeStr != null) {
